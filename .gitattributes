@@ -1,0 +1,12 @@
+# The site is authored on Windows and served from Linux. Normalise to LF in the
+# repository so diffs stay clean and the served bytes do not depend on which
+# machine last touched a file.
+* text=auto eol=lf
+
+# Binary — never touch these.
+*.png    binary
+*.webp   binary
+*.jpg    binary
+*.pdf    binary
+*.woff2  binary
+*.ico    binary

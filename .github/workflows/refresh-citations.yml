@@ -1,0 +1,59 @@
+name: Refresh citation counts
+
+# Re-reads the citation counts from OpenAlex, writes them into index.html, and
+# deploys. The numbers are BAKED INTO the page, so the live site still makes zero
+# third-party requests and the counts are there with JavaScript disabled.
+#
+# Why the deploy step is here and not a plain `git push`: a commit pushed with the
+# default GITHUB_TOKEN does NOT trigger a GitHub Pages build (GitHub suppresses it
+# to avoid recursion), so the number would update in the repo and never reach the
+# live site. Deploying from this same workflow is the fix.
+
+on:
+  schedule:
+    - cron: '17 4 * * 1'        # 04:17 UTC every Monday
+  workflow_dispatch:            # and on demand from the Actions tab
+
+permissions:
+  contents: write               # to commit the refreshed index.html
+  pages: write                  # to publish
+  id-token: write               # required by deploy-pages
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Read the counts and patch index.html
+        run: python tools/update-citations.py
+
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "counts unchanged"
+          else
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "chore: refresh citation counts"
+            git push
+          fi
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deploy
+        uses: actions/deploy-pages@v4

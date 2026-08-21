@@ -1,0 +1,38 @@
+name: Deploy
+
+# Publishes the site on every push to main.
+#
+# This is deliberately separate from refresh-citations.yml. That one talks to
+# OpenAlex, and a push should not be able to fail — or wait — on a third party
+# being reachable. So: this deploys, that one refreshes numbers weekly (and
+# deploys afterwards, because a GITHUB_TOKEN push does not itself trigger a
+# Pages build).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read        # least privilege: this job never writes to the repo
+  pages: write
+  id-token: write       # required by deploy-pages
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deploy
+        uses: actions/deploy-pages@v4

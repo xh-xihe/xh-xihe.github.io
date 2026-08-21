@@ -1,0 +1,35 @@
+# local scratch — preview harnesses, LaTeX aux files
+.build/
+
+# the old site, cloned only as a reference while rebuilding; safe to delete
+_existing_repo/
+
+# LaTeX by-products (cv.pdf itself IS committed — the site links to it)
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Python build artifacts
+__pycache__/
+*.pyc
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# figure preview harness
+.preview/
+
+# downloaded figure sources
+.figsrc/
+
+# Handover notes and the CV source stay local. cv.tex is not published because
+# its LaTeX comments are world-readable once served, and they contain a position
+# and two unsubmitted manuscripts that were deliberately kept out of the PDF.
+# The compiled cv.pdf IS published — the site links it.
+NOTES.local.md
+cv.tex

@@ -1,0 +1,1012 @@
+/* ══════════════════════════════════════════════════════════════════════
+   Xi He — academic homepage
+   Plain CSS. No framework, no build step, no third-party requests.
+
+   Two type laws, and everything follows from them:
+     · serif  = language a human wrote  (lead paragraph, paper titles)
+     · sans   = everything a machine labels (nav, authors, venues, chips)
+   The accent is ink, not hue: black on white, white on black. Because hue no
+   longer marks a link, every inline link carries an underline instead.
+   Depth is a 1px border — there are no shadows.
+
+     1  Tokens          7  News
+     2  Reset & base    8  Research threads
+     3  Bilingual       9  Publications
+     4  Shell          10  Rows · timeline · honors · contact
+     5  Left rail      11  Footer · toast
+     6  Sections       12  Responsive   13  Print / forced-colors
+   ══════════════════════════════════════════════════════════════════════ */
+
+
+/* ── 1. Tokens ──────────────────────────────────────────────────────── */
+
+:root {
+  color-scheme: light dark;
+
+  /* Neutral white, cool-black ink — the greys carry no hue, which is what
+     keeps a page built out of hairline rules from reading cream. Every value
+     is contrast-checked against its own theme background. */
+  --bg:             #ffffff;
+  --surface:        #ffffff;
+  --sunken:         #f4f5f7;
+  --border:         #e3e5e9;
+  --border-strong:  #86898f;   /* 3.5:1 — control boundaries */
+  --text:           #14161a;   /* 18.1:1 */
+  --text-2:         #3b3f46;   /* 10.6:1 */
+  --muted:          #5b6068;   /*  6.3:1 */
+  --accent:         #14161a;   /* 18.1:1 - ink, not hue */
+  --accent-hover:   #000000;   /* 21.0:1 */
+  --accent-soft:    #eef0f3;
+  --accent-line:    #b9bdc4;
+
+  --font-sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  /* Latin comes from Source Serif 4; CJK falls through to whatever serif the
+     system has (Noto Serif SC / Songti SC / SimSun) before the generic. */
+  --font-serif: "Source Serif 4", Georgia, "Noto Serif SC", "Source Han Serif SC",
+                "Songti SC", SimSun, "Times New Roman", serif;
+  --font-mono:  ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --lh-prose: 1.65;
+
+  --r1: 2px;   /* figures, photo, badges */
+  --r2: 6px;   /* chips, inputs, buttons */
+
+  --rail-w:    264px;
+  --gutter:    72px;
+  --content-w: 768px;
+
+  --dur: 120ms;
+  --ease: cubic-bezier(.2, 0, .2, 1);
+}
+
+html[lang="zh"] {
+  --font-sans: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+               "Noto Sans SC", -apple-system, sans-serif;
+  --lh-prose: 1.85;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:            #101215;
+    --surface:       #17191d;
+    --sunken:        #131519;
+    --border:        #262a30;
+    --border-strong: #6d7278;   /* 3.9:1 */
+    --text:          #e7e9ec;   /* 15.4:1 */
+    --text-2:        #bcc0c6;   /* 10.3:1 */
+    --muted:         #9aa0a8;   /*  7.1:1 */
+    --accent:        #e7e9ec;   /*  7.5:1 */
+    --accent-hover:  #ffffff;   /* 10.1:1 */
+    --accent-soft:   #23272d;
+    --accent-line:   #495059;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg:            #101215;
+  --surface:       #17191d;
+  --sunken:        #131519;
+  --border:        #262a30;
+  --border-strong: #6d7278;
+  --text:          #e7e9ec;
+  --text-2:        #bcc0c6;
+  --muted:         #9aa0a8;
+  --accent:        #e7e9ec;
+  --accent-hover:  #ffffff;
+  --accent-soft:   #23272d;
+  --accent-line:   #495059;
+}
+
+/* Bind UA-painted surfaces — scrollbars, form controls, the text caret — to the
+   chosen theme. Bare :root keeps `light dark`, which is what data-theme="auto"
+   needs so those surfaces follow the OS. */
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"]  { color-scheme: dark; }
+
+
+/* ── 2. Reset & base ────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: var(--lh-prose);
+  font-feature-settings: "kern", "liga";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection { background: var(--accent-soft); color: var(--text); }
+
+h1, h2, h3 { margin: 0; font-weight: 600; line-height: 1.3; }
+p { margin: 0; }
+ul, ol, dl, dd { margin: 0; padding: 0; }
+li { list-style: none; }
+img, svg { max-width: 100%; }
+
+/* Ink accent means hue no longer identifies a link, so inline links are
+   underlined by default. Anything that is already a chip, a card or a nav row
+   opts out below — those are unambiguous from their own box. */
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  text-decoration-color: color-mix(in srgb, currentColor 32%, transparent);
+  transition: color var(--dur) var(--ease), text-decoration-color var(--dur) var(--ease);
+}
+a:hover { text-decoration-color: currentColor; }
+.rail-links a, .rail-nav a, .pub-links a, .filters a,
+.pub-title a, .contact dd a, .skip { text-decoration: none; }
+.pub-title a:hover, .contact dd a:hover { text-decoration: underline; text-underline-offset: 3px; }
+a:hover { color: var(--accent-hover); }
+
+:where(a, button, input, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--r1);
+}
+
+kbd {
+  font-family: var(--font-mono);
+  font-size: .75em;
+  padding: 1px 5px;
+  border: 1px solid var(--border);
+  border-radius: var(--r1);
+  background: var(--sunken);
+  color: var(--muted);
+}
+
+.mk { flex: none; }
+.dim { color: var(--muted); }
+
+/* Visible to assistive tech only — lets a control's accessible name extend its
+   visible label instead of overriding it with aria-label. */
+.vh {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  padding: 10px 16px; border-radius: var(--r2);
+  background: var(--accent); color: #fff;
+  font-size: .875rem; font-weight: 500;
+}
+.skip:focus { left: 24px; top: 12px; color: #fff; }
+
+
+/* ── 3. Bilingual ───────────────────────────────────────────────────── */
+
+html[lang="en"] .zh,
+html[lang="zh"] .en { display: none; }
+/* Chinese has no case and needs no tracking */
+html[lang="zh"] .sec-h,
+html[lang="zh"] .sub-h,
+html[lang="zh"] .contact dt,
+html[lang="zh"] .service-label { text-transform: none; letter-spacing: .06em; }
+
+
+/* ── 4. Shell ───────────────────────────────────────────────────────── */
+
+.shell {
+  display: grid;
+  grid-template-columns: var(--rail-w) minmax(0, var(--content-w));
+  gap: var(--gutter);
+  justify-content: center;
+  max-width: calc(var(--rail-w) + var(--gutter) + var(--content-w) + 80px);
+  margin: 0 auto;
+  padding: 0 40px;
+
+  /* The document is an opaque sheet over the backdrop. Everything else about
+     the effect depends on this: text sits on solid --surface, so no amount of
+     motion behind the page can move a contrast ratio. */
+  position: relative; z-index: 0;
+  background: var(--surface);
+  min-height: 100dvh;
+  border-inline: 1px solid var(--border);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / .01), 0 24px 70px -30px rgb(12 16 24 / .22);
+}
+:root[data-theme="dark"] .shell { box-shadow: 0 26px 80px -34px rgb(0 0 0 / .8); }
+/* Below 1280px the backdrop does not mount, so there is nothing for the sheet
+   to float above and its edge treatment is decoration with no story. */
+@media (max-width: 1279px) {
+  .shell { border: 0; box-shadow: none; background: none; min-height: 0; }
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .shell { box-shadow: 0 26px 80px -34px rgb(0 0 0 / .8); }
+}
+
+main { min-width: 0; padding-top: 72px; }
+
+
+/* ── 5. Left rail ───────────────────────────────────────────────────── */
+
+/* The rail is ~830px tall. On a screen taller than that it pins; on anything
+   shorter — a 1366×768 laptop, say — pinning would clip the section nav off the
+   bottom with no scrollbar to reveal it, so below 880px it simply scrolls with
+   the page. See the max-height query further down. */
+.rail-inner {
+  position: sticky; top: 0;   /* also the containing block for .rail-tools */
+  padding: 72px 0 40px;
+  max-height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+.rail-inner::-webkit-scrollbar { width: 4px; }
+.rail-inner::-webkit-scrollbar-thumb { background: var(--border); }
+
+@media (max-height: 880px) {
+  /* .rail-tools is absolutely positioned and uses .rail-inner's sticky
+     positioning as its containing block; once that goes static the aside
+     itself has to provide one. */
+  .rail { position: relative; }
+  .rail-inner { position: static; max-height: none; overflow: visible; }
+}
+
+.portrait {
+  position: relative;
+  width: 148px; height: 148px;
+  border: 1px solid var(--border);
+  border-radius: var(--r1);
+  background: var(--sunken);
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+.portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.portrait-fallback {
+  position: absolute; inset: 0;
+  display: none; align-items: center; justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 3rem; font-weight: 400; letter-spacing: .04em;
+  color: var(--border-strong);
+}
+.portrait.no-photo .portrait-fallback { display: flex; }
+
+.rail-name {
+  font-family: var(--font-serif);
+  font-size: 1.875rem; font-weight: 600;
+  letter-spacing: -.012em; line-height: 1.1;
+  margin-bottom: 8px;
+}
+.rail-role { font-size: .9375rem; font-weight: 500; color: var(--text-2); line-height: 1.4; }
+.rail-aff  { font-size: .875rem; color: var(--muted); line-height: 1.5; margin-top: 5px; }
+
+.rail-links {
+  margin-top: 22px; padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 9px;
+  font-size: .875rem;
+}
+.rail-links a, .rail-loc {
+  display: flex; align-items: center; gap: 9px;
+  padding-block: 2px;
+  color: var(--text-2); line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.rail-links a:hover { color: var(--accent); }
+.rail-links .mk { font-size: .9375rem; width: 1.05em; text-align: center; }
+.rail-loc { color: var(--muted); }
+
+.rail-nav {
+  margin-top: 22px; padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex; flex-direction: column;
+}
+.rail-nav a {
+  padding: 5px 0 5px 14px;
+  font-size: .875rem;
+  color: var(--muted);
+  border-left: 2px solid transparent;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.rail-nav a:hover { color: var(--text); }
+.rail-nav a.on { color: var(--text); font-weight: 500; border-left-color: var(--accent); }
+
+/* Pinned top-right of the rail so the controls are always in view — they must
+   not fall below the fold of a sticky column on a short screen. */
+.rail-tools { position: absolute; top: 72px; right: 0; display: flex; gap: 6px; }
+.tool {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 32px; height: 32px;
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  background: transparent;
+  color: var(--muted);
+  font: inherit; font-size: .8125rem;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease),
+              background var(--dur) var(--ease);
+}
+.tool:hover { color: var(--text); border-color: var(--border-strong); background: var(--sunken); }
+.tool .mk { font-size: .875rem; }
+.tool-text { padding: 0 11px; font-weight: 500; }
+
+.ic-moon { display: none; }
+:root[data-theme="dark"] .ic-sun  { display: none; }
+:root[data-theme="dark"] .ic-moon { display: inline-block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .ic-sun  { display: none; }
+  :root:not([data-theme="light"]) .ic-moon { display: inline-block; }
+}
+
+
+/* ── 6. Sections ────────────────────────────────────────────────────── */
+
+.sec { padding-bottom: 72px; scroll-margin-top: 28px; }
+
+.sec-h {
+  display: flex; align-items: center; gap: 8px;
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .13em; text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 11px; margin-bottom: 26px;
+  border-bottom: 1px solid var(--border);
+}
+/* Emoji marks. On an otherwise ink-and-paper page these are the only colour,
+   which is exactly what makes them findable — the eye lands on the mark before
+   it reads the label. Named font stack because Inter is unicode-range
+   subsetted and these codepoints fall through to the system emoji face;
+   font-variant-emoji asks for the colour glyph rather than the text one for
+   the few that have both presentations (the sparkle, the atom).
+   Emoji sit on their own baseline conventions, so every use below nudges the
+   optical position rather than trusting vertical-align. */
+.mk {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-style: normal; font-weight: 400; line-height: 1;
+  font-variant-emoji: emoji;
+}
+.sec-h .mk { font-size: .9375rem; margin-top: -1px; }
+.sub-h .mk { font-size: .8125rem; margin-right: 7px; }
+.sub-h {
+  display: flex; align-items: center;
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-2);
+  margin: 42px 0 16px;
+}
+.sec-note { font-size: .875rem; color: var(--muted); margin-bottom: 20px; }
+
+.prose p { margin-bottom: 15px; color: var(--text-2); max-width: 66ch; }
+.prose p:last-child { margin-bottom: 0; }
+.prose strong { color: var(--text); font-weight: 600; }
+.prose .lead {
+  font-family: var(--font-serif);
+  font-size: 1.3125rem; line-height: 1.55;
+  color: var(--text);
+  margin-bottom: 20px;
+  max-width: 58ch;
+  text-wrap: pretty;
+}
+.prose a {
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.prose a:hover { text-decoration-color: currentColor; }
+
+
+/* ── 7. News ────────────────────────────────────────────────────────── */
+
+.news li {
+  /* date, mark, item — declared here only; see .honors li. */
+  display: grid; grid-template-columns: 84px 18px 1fr; gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: .9375rem;
+}
+.news li:last-child { border-bottom: 0; }
+.news time {
+  font-family: var(--font-mono); font-size: .75rem;
+  color: var(--muted); padding-top: 4px; white-space: nowrap;
+}
+.news p { color: var(--text-2); max-width: 62ch; }
+/* A mark in a fixed column, so the eye has a rail to run down. The column is
+   18px because an emoji is roughly square at its own size, unlike the 13px
+   stroked glyph it replaces. */
+.news .mk { font-size: .875rem; padding-top: 3px; }
+.honors .mk { font-size: .8125rem; padding-top: 2px; }
+.tl-body h4 .mk { font-size: .8125rem; margin-right: 8px; }
+.org-logo {
+  width: 18px; height: 18px;
+  margin-right: 7px; vertical-align: -4px;
+  object-fit: contain;
+}
+/* the marks are full colour on a monochrome page; on paper they print as grey
+   blocks, and in forced-colors they ignore the user's palette entirely */
+@media (forced-colors: active) { .org-logo { display: none; } }
+
+
+/* ── 8. Research threads ────────────────────────────────────────────── */
+
+.topics li {
+  display: grid; grid-template-columns: 42px 1fr; gap: 4px 18px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+}
+.topics li:last-child { border-bottom: 0; }
+.topic-n {
+  grid-row: 1 / span 2;
+  font-family: var(--font-mono); font-size: .75rem;
+  color: var(--accent); padding-top: 5px; letter-spacing: .03em;
+}
+.topics h3 { font-size: 1.0625rem; letter-spacing: -.005em; }
+.topics p { color: var(--muted); font-size: .9375rem; max-width: 60ch; }
+
+
+/* ── 9. Publications ────────────────────────────────────────────────── */
+
+.pub-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 14px; flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.filters { display: flex; gap: 4px; flex-wrap: wrap; }
+.filters button {
+  padding: 5px 11px;
+  border: 1px solid transparent;
+  border-radius: var(--r2);
+  background: transparent;
+  color: var(--muted);
+  font: inherit; font-size: .8125rem; font-weight: 500;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), background var(--dur) var(--ease),
+              border-color var(--dur) var(--ease);
+}
+.filters button:hover { color: var(--text); background: var(--sunken); }
+/* The pressed state must be distinguishable by more than a hue shift: --accent
+   as the border clears 3:1 against both the page and the chip's own fill, and
+   the weight change carries it for anyone who cannot see the colour at all. */
+.filters button[aria-pressed="true"] {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.pub-search {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r2);
+  background: var(--surface);
+  color: var(--muted);
+  min-width: 216px;
+  transition: border-color var(--dur) var(--ease);
+}
+/* The label is the visible control, so the focus ring goes on the wrapper —
+   a ring around the bare <input> would collide with the icon and the kbd hint.
+   `outline: 0` on the input is deliberate and is why this rule exists. */
+.pub-search:focus-within {
+  border-color: var(--accent);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.pub-search .mk { font-size: .8125rem; }
+.pub-search input {
+  flex: 1; min-width: 0;
+  border: 0; outline: 0; background: transparent;
+  font: inherit; font-size: .875rem; color: var(--text);
+}
+.pub-search input::placeholder { color: var(--muted); }
+.pub-search input::-webkit-search-cancel-button { display: none; }
+
+.pub-count { font-size: .8125rem; color: var(--muted); margin: 14px 0 0; }
+
+.pub {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  align-items: start;      /* the figure box hugs its own height, not the row's */
+  gap: 26px;
+  padding: 26px 0;
+  border-top: 1px solid var(--border);
+}
+.pub[hidden] { display: none; }
+
+/* Two kinds of figure live here. A real figure lifted from the paper keeps its
+   own proportions — they run from 0.9:1 to 5.7:1, so any fixed box would crop
+   the sides off — and sits on white, because that is what it was drawn on. A
+   hand-drawn diagram (used only where no real figure could be obtained) is
+   theme-aware and keeps the 22:15 slot. */
+.pub-fig {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: var(--r1);
+  overflow: hidden;
+  color: var(--text);
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.pub-fig:has(svg) { aspect-ratio: 220 / 150; background: var(--sunken); }
+.pub-fig svg { width: 100%; height: 100%; display: block; }
+.pub-fig img {
+  width: 100%;
+  height: auto;
+  /* Real figures range from 0.9:1 to 4.3:1. Letting every one take its natural
+     height makes the column lurch; clamping to this band keeps the rhythm even
+     while `contain` guarantees nothing is ever cropped. */
+  min-height: 88px;
+  max-height: 200px;
+  object-fit: contain;
+  background: #fff;
+  display: block;
+}
+.pub:hover .pub-fig { border-color: var(--accent-line); }
+.pub:hover .pub-fig:has(svg) { background: var(--accent-soft); }
+/* paper figures are always light artwork; take the glare off in dark mode */
+:root[data-theme="dark"] .pub-fig img { filter: brightness(.9) contrast(1.02); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pub-fig img { filter: brightness(.9) contrast(1.02); }
+}
+
+.pub-body { min-width: 0; }
+
+/* The kind of thing this is, as a pill above the title — the constant-position
+   mark that makes a 20-row list scannable. Outlined, never filled: on an ink
+   page a filled chip would be the loudest object in the row. */
+.kind {
+  display: inline-block;
+  margin-bottom: 6px;
+  padding: 1px 7px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: .6875rem; font-weight: 500;
+  letter-spacing: .04em; text-transform: uppercase;
+  color: var(--muted);
+}
+.pub:hover .kind { border-color: var(--border-strong); color: var(--text-2); }
+
+.pub-title {
+  font-family: var(--font-serif);
+  font-size: 1.1875rem; font-weight: 600;
+  line-height: 1.35; letter-spacing: -.004em;
+  margin-bottom: 6px;
+  text-wrap: balance;
+}
+.pub-title a { color: var(--text); }
+.pub-title a:hover {
+  color: var(--accent);
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;
+}
+
+.pub-authors { font-size: .875rem; color: var(--text-2); line-height: 1.55; }
+.me { font-weight: 700; color: var(--text); }
+
+.pub-venue { font-size: .875rem; color: var(--muted); margin-top: 2px; }
+.pub-venue em { font-style: italic; color: var(--text-2); }
+/* Citation count, baked in at refresh time so the page still makes no
+   third-party request and the number survives with JavaScript off. */
+.eprint { font-family: var(--font-mono); font-size: .8125rem;
+          font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* the venue line is a middot-separated run; each appended datum brings its own */
+.pub-venue .eprint:not(:first-child)::before { content: " · "; font-family: var(--font-sans); }
+.pub-venue .tag + .eprint::before { content: " "; }
+.eprint a { color: var(--muted); }
+.eprint a:hover { color: var(--accent); }
+.pub-venue strong { font-variant-numeric: tabular-nums; }
+.pub-venue .cites { color: var(--muted); white-space: nowrap; }
+.pub-venue .cites::before { content: " · "; }
+.pub-venue strong { font-weight: 600; color: var(--text-2); }
+
+.tag {
+  display: inline-block;
+  margin-left: 5px; padding: 1px 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--r1);
+  font-size: .6875rem; font-weight: 500; letter-spacing: .02em;
+  color: var(--muted);
+  vertical-align: 1px;
+}
+
+.pub-tldr {
+  font-family: var(--font-serif);
+  font-size: .9375rem; line-height: 1.55;
+  color: var(--muted);
+  margin-top: 9px; max-width: 62ch;
+  text-wrap: pretty;
+}
+
+.pub-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 11px; }
+.pub-links a, .pub-links button {
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  background: transparent;
+  font: inherit; font-size: .78125rem; font-weight: 500;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease),
+              background var(--dur) var(--ease);
+}
+.pub-links a:hover, .pub-links button:hover {
+  color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft);
+}
+
+mark { background: var(--accent-soft); color: inherit; border-radius: var(--r1); padding: 0 1px; }
+
+
+/* ── 10. Rows · timeline · honors · contact ─────────────────────────── */
+
+.rows li {
+  display: grid; grid-template-columns: 104px 1fr; gap: 4px 20px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+}
+.rows li:last-child { border-bottom: 0; }
+.row-when {
+  grid-row: 1 / span 2;
+  font-family: var(--font-mono); font-size: .75rem;
+  color: var(--muted); padding-top: 4px; white-space: nowrap;
+}
+.row-what  { font-size: .9375rem; color: var(--text); line-height: 1.5; max-width: 58ch; }
+.row-where { font-size: .8125rem; color: var(--muted); }
+.rows-grant .row-what { font-weight: 500; }
+
+.timeline li {
+  position: relative;
+  display: grid; grid-template-columns: 104px 1fr; gap: 20px;
+  padding-bottom: 24px;
+}
+.timeline li::before {
+  content: ""; position: absolute;
+  left: 3px; top: 10px; bottom: 0; width: 1px;
+  background: var(--border);
+}
+.timeline li:last-child::before { display: none; }
+.timeline li::after {
+  content: ""; position: absolute;
+  left: 0; top: 6px; width: 7px; height: 7px;
+  background: var(--bg);
+  border: 1.5px solid var(--border-strong);
+}
+.timeline li.now::after { background: var(--accent); border-color: var(--accent); }
+.tl-when {
+  font-family: var(--font-mono); font-size: .75rem;
+  color: var(--muted); padding: 3px 0 0 20px; white-space: nowrap;
+}
+.tl-body h3 { font-size: 1rem; }
+.tl-org  { font-size: .9375rem; color: var(--text-2); line-height: 1.5; margin-top: 1px; }
+.tl-note { font-size: .8125rem; color: var(--muted); margin-top: 3px; }
+
+.honors {
+  display: grid;
+  /* min() so a 320px viewport gets one column instead of a horizontal scrollbar */
+  grid-template-columns: repeat(auto-fill, minmax(min(292px, 100%), 1fr));
+  column-gap: 28px;
+}
+.honors li {
+  /* mark, year, citation — declared here and nowhere else, so nothing later
+     in the cascade can silently drop the mark column. */
+  display: grid; grid-template-columns: 18px 44px 1fr; gap: 9px;
+  padding: 7px 0;
+  font-size: .875rem; color: var(--text-2);
+  border-bottom: 1px solid var(--border);
+}
+.honors .yr { font-family: var(--font-mono); font-size: .75rem; color: var(--muted); padding-top: 2px; }
+
+.service { font-size: .9375rem; color: var(--text-2); line-height: 1.7; max-width: 62ch; }
+.service-label {
+  display: block;
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 4px;
+}
+
+.contact { display: grid; grid-template-columns: 104px 1fr; gap: 4px 20px; }
+.contact dt {
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); padding-top: 4px;
+}
+.contact dd { font-size: .9375rem; color: var(--text-2); line-height: 1.7; margin-bottom: 16px; }
+.contact dd:last-child { margin-bottom: 0; }
+
+
+/* ── 11. Footer · toast ─────────────────────────────────────────────── */
+
+/* Third child of .shell — outside <main> so it is a real contentinfo landmark,
+   but still aligned with the content column rather than dropping into the rail. */
+.foot {
+  grid-column: 2;
+  padding: 26px 0 64px;
+  border-top: 1px solid var(--border);
+  font-size: .8125rem; color: var(--muted);
+}
+
+.toast {
+  position: fixed; left: 50%; bottom: 28px; z-index: 60;
+  transform: translate(-50%, 10px);
+  padding: 9px 16px;
+  border-radius: var(--r2);
+  background: var(--text); color: var(--bg);
+  font-size: .8125rem; font-weight: 500;
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+
+/* ── 12. Responsive ─────────────────────────────────────────────────── */
+
+@media (max-width: 1180px) {
+  :root { --gutter: 52px; --rail-w: 240px; }
+  .shell { padding: 0 32px; }
+}
+
+@media (max-width: 940px) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0; max-width: 720px; padding: 0 24px;
+  }
+  .foot { grid-column: 1; }   /* single column now — column 2 does not exist */
+  main { padding-top: 36px; }
+
+  .rail-inner { position: relative; top: auto; max-height: none; overflow: visible; padding: 44px 0 0; }
+  .portrait { width: 108px; height: 108px; margin-bottom: 16px; }
+  .portrait-fallback { font-size: 2.125rem; }
+  .rail-name { font-size: 1.75rem; }
+
+  .rail-links { flex-direction: row; flex-wrap: wrap; gap: 6px 20px; }
+  .pub { grid-template-columns: 190px minmax(0, 1fr); gap: 22px; }
+
+  /* section nav becomes a horizontally scrollable chip row */
+  .rail-nav {
+    flex-direction: row; gap: 6px;
+    overflow-x: auto; scrollbar-width: none;
+    margin: 18px -24px 0; padding: 16px 24px 0;
+  }
+  .rail-nav::-webkit-scrollbar { display: none; }
+  .rail-nav a {
+    flex: none; padding: 5px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--r2);
+    white-space: nowrap;
+  }
+  .rail-nav a.on { color: var(--accent); background: var(--accent-soft); border-color: var(--accent-line); }
+
+  .rail-tools { position: absolute; top: 44px; right: 0; margin-top: 0; }
+}
+
+@media (max-width: 620px) {
+  body { font-size: 15.5px; }
+  .shell { padding: 0 18px; }
+  .rail-nav { margin-inline: -18px; padding-inline: 18px; }
+
+  .pub { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .pub-fig { max-width: 300px; }
+  .pub-title { font-size: 1.125rem; }
+
+  .rows li, .timeline li, .contact, .topics li {
+    grid-template-columns: minmax(0, 1fr); gap: 3px;
+  }
+  /* The mark stays beside the date rather than claiming a line of its own. */
+  .news li { grid-template-columns: auto 1fr; gap: 3px 8px; }
+  .news li p { grid-column: 1 / -1; }
+  .news .mk { padding-top: 0; }
+  .news time, .row-when, .tl-when, .topic-n { grid-row: auto; padding: 0; }
+  .timeline li::before, .timeline li::after { display: none; }
+  .contact dd { margin-bottom: 14px; }
+
+  .pub-bar { flex-direction: column; align-items: stretch; }
+  .prose .lead { font-size: 1.1875rem; }
+  .sec { padding-bottom: 52px; }
+}
+
+
+/* ── 12b. Motion ────────────────────────────────────────────────────────
+   Everything here is CSS-only, driven by the pointer or by scroll position —
+   nothing runs on a timer and nothing animates on load.
+
+   Two rules govern the whole block:
+
+   1. No effect may make CONTENT harder to read. A publication list that fades
+      its rows in is hostile to someone scanning it in four minutes, so the
+      motion sits on rules, surfaces and figures — never on the text itself.
+   2. Any entrance state lives inside `@supports (animation-timeline: view())`
+      AND `prefers-reduced-motion: no-preference`. A browser without
+      scroll-driven animations never applies the start state at all, so it
+      shows the finished page rather than an unfinished one. Print has no
+      scroll timeline either, which is why the print block below re-asserts
+      the finished state.
+   ------------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* The section rule draws itself as the section reaches reading position.
+       Nothing is added to the page — the hairline that was already there
+       arrives instead of being pre-drawn. */
+    .sec-h {
+      border-bottom-color: transparent;
+      background-image: linear-gradient(var(--border), var(--border));
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      background-size: 0% 1px;
+      animation: rule-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 12% cover 20%;
+    }
+  }
+}
+@keyframes rule-draw { to { background-size: 100% 1px; } }
+
+/* Rows travel when the filter changes. A whole-page crossfade has no referent
+   here — only the rows moved — so the root transition is suppressed and just the
+   named groups animate. */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-group(*) {
+    animation-duration: 190ms;
+    animation-timing-function: cubic-bezier(.2, 0, .2, 1);
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+}
+
+/* The publication row answers the pointer: the figure eases up a fraction
+   inside its already-clipped box, and the row picks up the faintest surface.
+   Both are compositor-cheap and neither moves any text. */
+.pub { transition: background-color var(--dur) var(--ease); }
+.pub:hover { background-color: color-mix(in srgb, var(--sunken) 55%, transparent); }
+.pub-fig img, .pub-fig svg { transition: transform 240ms var(--ease); }
+.pub:hover .pub-fig img, .pub:hover .pub-fig svg { transform: scale(1.03); }
+
+/* The rail nav marker slides between sections rather than blinking. */
+.rail-nav a { transition: color var(--dur) var(--ease), border-color 200ms var(--ease); }
+
+
+/* ── 12c. Ground ────────────────────────────────────────────
+   A grainy mesh gradient behind the sheet: four blurred colour fields that
+   drift, with film grain over them.
+
+   Two things were learned the hard way and are worth keeping written down.
+   The glow/aurora recipe that reads as premium everywhere else is a dark-mode
+   technique — on a white ground there is nothing for a glow to glow against
+   and it turns to grey smudge. And drawn shapes in the margins read as
+   decoration in the empty space no matter how well they are drawn; what looks
+   expensive is material, not spectacle.
+
+   The grain is structural, not decorative: a smooth gradient this large bands
+   on 8-bit panels, and a few percent of noise breaks the bands up. It is an
+   inline feTurbulence data URI, so the page still makes no third-party request.
+
+   Mounted from 1280px, which is where the sheet starts leaving margin worth
+   looking at. Nothing here is ever under text — the sheet is opaque — so no
+   amount of motion can move a contrast ratio.
+   ----------------------------------------------------------------------- */
+.ground { display: none; }
+
+@media (min-width: 1280px) {
+  .ground {
+    display: block;
+    position: fixed; inset: 0; z-index: -1;
+    overflow: hidden; pointer-events: none;
+    background: var(--sunken);
+  }
+  .ground i {
+    position: absolute; display: block; border-radius: 50%;
+    filter: blur(90px);        /* on the blob, not the container: a filter on a
+                                  container whose children move re-runs every
+                                  frame; on the blob it rasterises once */
+    will-change: transform;
+  }
+  .g1 { width: 52vw; height: 52vw; left: -14vw; top:    -8vh; background: rgb(129 140 248 / .38); }
+  .g2 { width: 44vw; height: 44vw; right:-12vw; top:     6vh; background: rgb(125 211 252 / .30); }
+  .g3 { width: 48vw; height: 48vw; right:-16vw; bottom:-14vh; background: rgb(196 181 253 / .34); }
+  .g4 { width: 34vw; height: 34vw; left:  -6vw; bottom:-10vh; background: rgb(251 207 232 / .26); }
+
+  :root[data-theme="dark"] .g1 { background: rgb( 79  70 229 / .50); }
+  :root[data-theme="dark"] .g2 { background: rgb(  2 132 199 / .40); }
+  :root[data-theme="dark"] .g3 { background: rgb(126  34 206 / .45); }
+  :root[data-theme="dark"] .g4 { background: rgb(190  24  93 / .30); }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .g1 { background: rgb( 79  70 229 / .50); }
+    :root:not([data-theme="light"]) .g2 { background: rgb(  2 132 199 / .40); }
+    :root:not([data-theme="light"]) .g3 { background: rgb(126  34 206 / .45); }
+    :root:not([data-theme="light"]) .g4 { background: rgb(190  24  93 / .30); }
+  }
+
+  .ground::after {
+    content: ""; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: .09;
+  }
+  :root[data-theme="dark"] .ground::after { opacity: .12; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .ground::after { opacity: .12; }
+  }
+
+  /* The sheet gets a whisper of the same grain so it reads as paper rather
+     than as a blank div. It is a ::before at z-index -1, which paints above
+     the sheet's own background and below its content — texture on the paper,
+     never on the ink. */
+  .shell::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: .035;
+    pointer-events: none;
+  }
+}
+
+@media (min-width: 1280px) and (prefers-reduced-motion: no-preference) {
+  .g1 { animation: ground-a 30s ease-in-out infinite alternate; }
+  .g2 { animation: ground-b 38s ease-in-out infinite alternate; }
+  .g3 { animation: ground-c 34s ease-in-out infinite alternate; }
+  .g4 { animation: ground-d 42s ease-in-out infinite alternate; }
+}
+
+@keyframes ground-a { to { transform: translate3d( 10vw,  8vh, 0) scale(1.25); } }
+@keyframes ground-b { to { transform: translate3d( -9vw, 12vh, 0) scale(1.30); } }
+@keyframes ground-c { to { transform: translate3d( -7vw,-10vh, 0) scale(1.20); } }
+@keyframes ground-d { to { transform: translate3d(  8vw, -9vh, 0) scale(1.28); } }
+
+@media print { .ground { display: none !important; } }
+@media (forced-colors: active) {
+  .ground { display: none !important; }
+  .shell::before { display: none; }
+}
+
+/* ── 13. Print & forced colors ──────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .pub-fig, .portrait, .tool, .pub-links a, .filters button { border-color: CanvasText; }
+  .filters button[aria-pressed="true"] { background: Highlight; color: HighlightText; }
+}
+
+@media print {
+  /* Three selectors, because the print tokens have to outrank BOTH dark-theme
+     blocks: :root[data-theme] ties the explicit dark rule and wins on source
+     order, and :root:not([data-theme="light"]) ties the prefers-color-scheme
+     one. Without them, printing while in dark mode puts near-white text on
+     white paper. */
+  :root,
+  :root[data-theme],
+  :root:not([data-theme="light"]) {
+    --bg: #fff; --surface: #fff; --sunken: #fff;
+    --text: #000; --text-2: #1a1a1a; --muted: #444;
+    --accent: #000; --accent-hover: #000; --accent-soft: #fff;
+    --border: #ccc; --border-strong: #999; --accent-line: #999;
+  }
+  .rail-nav, .rail-tools, .pub-bar, .pub-count, .toast, .skip,
+  .pub-links button,                    /* BibTeX is useless on paper */
+  .mk, .org-logo,                       /* colour bitmaps; grey mush on a mono printer */
+  #pub-empty { display: none !important; }
+  /* give back the columns the marks occupied */
+  .news li   { grid-template-columns: 84px 1fr; }
+  .honors li { grid-template-columns: 44px 1fr; }
+  /* no scroll timeline exists on paper, so undo every entrance start state */
+  .sec-h { background-image: none; border-bottom-color: var(--border); }
+  .pub { opacity: 1 !important; background: none !important; }
+  .shell { display: block; max-width: none; padding: 0;
+           background: none; border: 0; box-shadow: none; min-height: 0; }
+  .rail-inner { position: static; padding: 0 0 20px; }
+  .portrait { width: 88px; height: 88px; }
+  main { padding-top: 0; }
+  .sec { padding-bottom: 22px; }
+  /* a filtered list must still print in full */
+  .pub[hidden] { display: grid !important; }
+  .pub { page-break-inside: avoid; }
+  .pub-fig { max-width: 150px; }
+  a { color: #000; text-decoration: none; }
+  .pub-links a::after { content: " (" attr(href) ")"; font-size: .7em; color: #555; word-break: break-all; }
+}

@@ -1,0 +1,846 @@
+<!-- Hand-drawn principle diagrams that were replaced by the real figure
+     from each paper. Kept so nothing is lost: paste one back into the
+     sprite in index.html and restore its <svg><use> wrapper to use it. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0"><defs>
+<!-- ═══ t-qcode-agents ═══════════════════════════════════════════════════
+     U(w,m) = ⊗ Z(2πwᵢ/m) — ONE box per wire, zero vertical connectors: that
+     absence IS transversality. The modular inner product ⟨w,x⟩ mod 7 sorts
+     the hypercube into residue classes; the code lives on S₀ and S₁.
+     Worked example from the paper: n=5, m=7, w=(1,1,2,2,2).            ═══ -->
+<symbol id="t-qcode-agents" viewBox="0 0 220 150">
+  <g stroke="currentColor" fill="none">
+    <g stroke-width=".9" opacity=".45">
+      <path d="M14 26h44M14 44h44M14 62h44M14 80h44M14 98h44"/>
+    </g>
+    <g stroke-width="1.3" opacity=".8">
+      <rect x="26" y="20" width="13" height="12" rx="1.5"/>
+      <rect x="26" y="38" width="13" height="12" rx="1.5"/>
+      <rect x="26" y="56" width="13" height="12" rx="1.5"/>
+      <rect x="26" y="74" width="13" height="12" rx="1.5"/>
+      <rect x="26" y="92" width="13" height="12" rx="1.5"/>
+    </g>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8.5" text-anchor="middle" fill="currentColor" opacity=".8">
+    <text x="32.5" y="29">1</text><text x="32.5" y="47">1</text><text x="32.5" y="65">2</text>
+    <text x="32.5" y="83">2</text><text x="32.5" y="101">2</text>
+  </g>
+  <text x="32" y="120" text-anchor="middle" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+        font-size="10" fill="currentColor" opacity=".65">Z(2πw<tspan font-size="6.5" dy="2">i</tspan><tspan font-size="10" dy="-2">/7)</tspan></text>
+
+  <!-- residue ring Z_7 -->
+  <g transform="translate(150 66)">
+    <circle r="40" fill="none" stroke="currentColor" stroke-width="1" opacity=".35"/>
+    <g stroke="currentColor" stroke-width="1" opacity=".45">
+      <path d="M0 -40v-5"/><path d="M31.3 -24.9l3.9 -3.1"/><path d="M39 8.9l4.9 1.1"/>
+      <path d="M17.4 36l2.2 4.5"/><path d="M-17.4 36l-2.2 4.5"/><path d="M-39 8.9l-4.9 1.1"/>
+      <path d="M-31.3 -24.9l-3.9 -3.1"/>
+    </g>
+    <!-- the two residues that carry the logical basis -->
+    <circle cx="0" cy="-40" r="4.5" fill="var(--accent)"/>
+    <circle cx="17.4" cy="36" r="4.5" fill="var(--accent)"/>
+    <text x="0" y="-48" text-anchor="middle" font-family="ui-monospace,Consolas,monospace"
+          font-size="8" fill="var(--accent)">S₀=0</text>
+    <text x="26" y="48" font-family="ui-monospace,Consolas,monospace" font-size="8" fill="var(--accent)">S₁=4</text>
+    <text x="0" y="4" text-anchor="middle" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+          font-size="11" fill="currentColor" opacity=".7">⟨w,x⟩ mod 7</text>
+  </g>
+  <!-- machine-checked -->
+  <circle cx="204" cy="132" r="8.5" fill="var(--accent)" opacity=".15"/>
+  <path d="M199.8 132l3 3.2 5.6-6.2" fill="none" stroke="var(--accent)" stroke-width="1.7"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="190" y="135" text-anchor="end" font-family="ui-monospace,Consolas,monospace"
+        font-size="8" fill="currentColor" opacity=".5">Lean 4</text>
+</symbol>
+
+
+<!-- ═══ t-variance ═══════════════════════════════════════════════════════
+     λ* = 2|ab| = |sin 2θ| over the one-parameter code family a=cosθ, b=sinθ.
+     A real curve with named axes — NOT a loss surface. Stabilizer codes are
+     the isolated points where the curve touches 0 and 1.                ═══ -->
+<symbol id="t-variance" viewBox="0 0 220 150">
+  <g fill="none" stroke-linecap="round">
+    <path d="M28 120h168M28 120V22" stroke="currentColor" stroke-width="1" opacity=".4"/>
+    <path d="M28 30h164" stroke="currentColor" stroke-width=".8" opacity=".25" stroke-dasharray="3 3"/>
+    <!-- lambda* = |sin 2theta| -->
+    <path d="M28 120C55 120 70 30 110 30C150 30 165 120 192 120" stroke="var(--accent)" stroke-width="2"/>
+  </g>
+  <!-- stabilizer codes: isolated points on the continuum -->
+  <g fill="currentColor" opacity=".8">
+    <circle cx="28" cy="120" r="3.4"/><circle cx="110" cy="30" r="3.4"/><circle cx="192" cy="120" r="3.4"/>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="11" fill="currentColor">
+    <text x="10" y="26" fill="var(--accent)">λ*</text>
+    <text x="198" y="124" opacity=".7">θ</text>
+    <text x="112" y="24" text-anchor="middle" fill="var(--accent)" font-size="10">2|ab|</text>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8" fill="currentColor" opacity=".5">
+    <text x="16" y="33">1</text>
+    <text x="16" y="123">0</text>
+    <text x="110" y="142" text-anchor="middle">stabilizer codes are the isolated dots</text>
+  </g>
+  <text x="60" y="60" font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10"
+        fill="currentColor" opacity=".6">PEP = λP</text>
+</symbol>
+
+
+<!-- ═══ t-fusion ═════════════════════════════════════════════════════════
+     Domain divergence is MMD written as tr(KL) over ONE Gram matrix built on
+     the CONCATENATED source+target sample list. The single fused matrix is
+     the point — there is no swap test and no "infusion box".            ═══ -->
+<symbol id="t-fusion" viewBox="0 0 220 150">
+  <!-- the two domains, still separate -->
+  <g fill="currentColor" opacity=".55" stroke="none">
+    <circle cx="20" cy="34" r="2.5"/><circle cx="32" cy="28" r="2.5"/><circle cx="26" cy="44" r="2.5"/>
+    <circle cx="38" cy="40" r="2.5"/><circle cx="15" cy="46" r="2.5"/>
+  </g>
+  <g fill="none" stroke="var(--accent)" stroke-width="1.3">
+    <circle cx="34" cy="82" r="2.5"/><circle cx="46" cy="76" r="2.5"/><circle cx="28" cy="92" r="2.5"/>
+    <circle cx="44" cy="94" r="2.5"/><circle cx="54" cy="84" r="2.5"/>
+  </g>
+  <path d="M28 50L40 72" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="3 2.5"
+        marker-start="url(#ah-sm-t)" marker-end="url(#ah-sm-t)"/>
+  <text x="4" y="66" font-family="ui-monospace,Consolas,monospace" font-size="8.5"
+        fill="var(--accent)" opacity=".9">MMD</text>
+
+  <!-- one Gram matrix over the concatenated list -->
+  <g transform="translate(96 26)">
+    <rect x="0" y="0" width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.3" opacity=".7"/>
+    <rect x="0" y="0" width="32" height="32" fill="var(--accent)" opacity=".12"/>
+    <rect x="32" y="32" width="32" height="32" fill="var(--accent)" opacity=".12"/>
+    <path d="M32 0v64M0 32h64" stroke="currentColor" stroke-width=".9" opacity=".45"/>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="9" text-anchor="middle" fill="currentColor" opacity=".75">
+    <text x="112" y="46">K<tspan font-size="6.5" dy="2">ss</tspan></text>
+    <text x="144" y="46">K<tspan font-size="6.5" dy="2">st</tspan></text>
+    <text x="112" y="78">K<tspan font-size="6.5" dy="2">ts</tspan></text>
+    <text x="144" y="78">K<tspan font-size="6.5" dy="2">tt</tspan></text>
+  </g>
+  <text x="128" y="104" text-anchor="middle" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+        font-size="11" fill="var(--accent)">tr(KL)</text>
+  <text x="128" y="18" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".5">source ⊕ target</text>
+
+  <!-- the quantum route, as gates on one wire -->
+  <g fill="none" stroke="currentColor">
+    <path d="M172 62h40" stroke-width=".9" opacity=".45"/>
+    <rect x="176" y="54" width="15" height="16" rx="1.5" stroke-width="1.3" opacity=".8"/>
+    <rect x="196" y="54" width="15" height="16" rx="1.5" stroke-width="1.3" stroke="var(--accent)"/>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="6.5" text-anchor="middle">
+    <text x="183.5" y="65" fill="currentColor" opacity=".8">QPE</text>
+    <text x="203.5" y="65" fill="var(--accent)">Ry</text>
+  </g>
+</symbol>
+
+
+<!-- ═══ t-qtca ═══════════════════════════════════════════════════════════
+     TCA is a KERNEL method: the objects are the pooled Gram matrix K and the
+     MMD matrix L with its +/- block signs. No point clouds, no ellipses —
+     those belong to QSA and QCORAL.                                     ═══ -->
+<symbol id="t-qtca" viewBox="0 0 220 150">
+  <!-- pooled Gram matrix -->
+  <g transform="translate(12 30)">
+    <rect x="0" y="0" width="70" height="70" fill="none" stroke="currentColor" stroke-width="1.3" opacity=".75"/>
+    <rect x="0" y="0" width="35" height="35" fill="var(--accent)" opacity=".13"/>
+    <rect x="35" y="35" width="35" height="35" fill="var(--accent)" opacity=".13"/>
+    <path d="M35 0v70M0 35h70" stroke="currentColor" stroke-width=".9" opacity=".45"/>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="9" text-anchor="middle" fill="currentColor" opacity=".75">
+    <text x="29" y="51">K<tspan font-size="6.5" dy="2">ss</tspan></text>
+    <text x="64" y="51">K<tspan font-size="6.5" dy="2">st</tspan></text>
+    <text x="29" y="86">K<tspan font-size="6.5" dy="2">ts</tspan></text>
+    <text x="64" y="86">K<tspan font-size="6.5" dy="2">tt</tspan></text>
+  </g>
+  <text x="47" y="22" text-anchor="middle" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+        font-size="11" fill="currentColor">K</text>
+
+  <!-- MMD matrix: the sign structure is what encodes the discrepancy -->
+  <g transform="translate(100 48)">
+    <rect x="0" y="0" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".75"/>
+    <path d="M17 0v34M0 17h34" stroke="currentColor" stroke-width=".8" opacity=".4"/>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="9" text-anchor="middle">
+    <text x="108.5" y="68" fill="var(--accent)">+</text><text x="125.5" y="68" fill="currentColor" opacity=".6">−</text>
+    <text x="108.5" y="85" fill="currentColor" opacity=".6">−</text><text x="125.5" y="85" fill="var(--accent)">+</text>
+  </g>
+  <text x="117" y="40" text-anchor="middle" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+        font-size="11" fill="currentColor">L</text>
+
+  <!-- the eigenproblem that produces the transfer components -->
+  <text x="150" y="66" font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10.5"
+        fill="currentColor" opacity=".8">(KLK+μI)<tspan font-size="7" dy="-4">−1</tspan></text>
+  <path d="M150 76h48" stroke="currentColor" stroke-width=".9" opacity=".45"/>
+  <text x="174" y="90" text-anchor="middle" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+        font-size="11" fill="var(--accent)">W</text>
+  <text x="174" y="112" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="var(--accent)" opacity=".9">transfer</text>
+  <text x="174" y="122" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="var(--accent)" opacity=".9">components</text>
+</symbol>
+
+
+<!-- ═══ t-qsa ════════════════════════════════════════════════════════════
+     Subspace alignment rotates PCA BASES about a COMMON origin. The data is
+     never translated — two planes through one point, differing by a
+     rotation, plus the d×d overlap matrix M* = Psᵀ Pt.                  ═══ -->
+<symbol id="t-qsa" viewBox="0 0 220 150">
+  <g fill="none" stroke-linecap="round">
+    <!-- source plane -->
+    <path d="M22 84L78 70L96 96L40 110Z" stroke="currentColor" stroke-width="1.1" opacity=".4"/>
+    <!-- target plane, same origin, rotated -->
+    <path d="M30 58L86 50L102 78L46 86Z" stroke="var(--accent)" stroke-width="1.1" opacity=".55"/>
+    <!-- the shared origin -->
+    <g transform="translate(58 88)">
+      <path d="M0 0L34-11" stroke="currentColor" stroke-width="1.6" opacity=".8" marker-end="url(#ah)"/>
+      <path d="M0 0L-16 14" stroke="currentColor" stroke-width="1.6" opacity=".8" marker-end="url(#ah)"/>
+      <path d="M0 0L36-27" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#ah-t)"/>
+      <path d="M0 0L-12 4" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#ah-t)"/>
+      <path d="M22-7a24 24 0 0 0 4-11" stroke="var(--accent)" stroke-width=".9" opacity=".8"/>
+      <circle r="2.2" fill="currentColor"/>
+    </g>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10">
+    <text x="98" y="102" fill="currentColor" opacity=".65">P<tspan font-size="6.5" dy="2">s</tspan></text>
+    <text x="104" y="72" fill="var(--accent)">P<tspan font-size="6.5" dy="2">t</tspan></text>
+    <text x="84" y="70" fill="var(--accent)" font-size="9">θ<tspan font-size="6" dy="2">ij</tspan></text>
+  </g>
+  <text x="110" y="30" text-anchor="middle" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+        font-size="13" fill="currentColor">M* = P<tspan font-size="8" dy="2.5">s</tspan><tspan font-size="8" dy="-7">⊤</tspan><tspan font-size="13" dy="4.5">P</tspan><tspan font-size="8" dy="2.5">t</tspan></text>
+  <text x="110" y="140" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".5">one origin, two rotated bases</text>
+</symbol>
+
+
+<!-- ═══ t-qca ════════════════════════════════════════════════════════════
+     CORAL matches SECOND MOMENTS only: whiten with Cs^-1/2, recolour with
+     Ct^1/2. The means never move, so the last panel shows two CONCENTRIC
+     ellipses that now coincide.                                        ═══ -->
+<symbol id="t-qca" viewBox="0 0 220 150">
+  <g fill="none" stroke-linecap="round">
+    <!-- Cs -->
+    <g transform="translate(36 74)">
+      <ellipse rx="28" ry="10.5" stroke="currentColor" stroke-width="1.5" opacity=".8" transform="rotate(-30)"/>
+      <g fill="currentColor" opacity=".45" stroke="none">
+        <circle cx="-14" cy="8" r="2"/><circle cx="-4" cy="3" r="2"/><circle cx="5" cy="-2" r="2"/>
+        <circle cx="15" cy="-8" r="2"/><circle cx="-8" cy="2" r="2"/><circle cx="9" cy="-9" r="2"/>
+      </g>
+    </g>
+    <!-- whitened: isotropic -->
+    <g transform="translate(110 74)">
+      <circle r="15" stroke="currentColor" stroke-width="1.3" opacity=".55" stroke-dasharray="3 2.5"/>
+      <g fill="currentColor" opacity=".45" stroke="none">
+        <circle cx="-8" cy="6" r="2"/><circle cx="4" cy="9" r="2"/><circle cx="9" cy="-4" r="2"/>
+        <circle cx="-6" cy="-8" r="2"/><circle cx="0" cy="0" r="2"/><circle cx="-11" cy="-2" r="2"/>
+      </g>
+    </g>
+    <!-- recoloured: source now coincides with the target covariance -->
+    <g transform="translate(184 74)">
+      <ellipse rx="26" ry="12" stroke="var(--accent)" stroke-width="1.5" transform="rotate(26)"/>
+      <ellipse rx="26" ry="12" stroke="currentColor" stroke-width="1.4" opacity=".7"
+               stroke-dasharray="4 3" transform="rotate(26)"/>
+      <g fill="currentColor" opacity=".45" stroke="none">
+        <circle cx="-13" cy="-6" r="2"/><circle cx="-3" cy="-2" r="2"/><circle cx="6" cy="4" r="2"/>
+        <circle cx="14" cy="8" r="2"/><circle cx="-7" cy="-7" r="2"/>
+      </g>
+    </g>
+    <path d="M70 74h20" stroke="currentColor" stroke-width="1" opacity=".55" marker-end="url(#ah-sm)"/>
+    <path d="M132 74h20" stroke="var(--accent)" stroke-width="1" marker-end="url(#ah-sm-t)"/>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="11.5" text-anchor="middle">
+    <text x="80" y="64" fill="currentColor" opacity=".8">C<tspan font-size="7.5" dy="2.5">s</tspan><tspan font-size="7.5" dy="-6.5">−1/2</tspan></text>
+    <text x="142" y="64" fill="var(--accent)">C<tspan font-size="7.5" dy="2.5">t</tspan><tspan font-size="7.5" dy="-6.5">1/2</tspan></text>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8.5" text-anchor="middle" fill="currentColor" opacity=".5">
+    <text x="36" y="122">Cs</text>
+    <text x="110" y="122">I</text>
+    <text x="184" y="122" fill="var(--accent)" opacity=".9">Ct — matched</text>
+  </g>
+</symbol>
+
+
+<!-- ═══ t-qlle ═══════════════════════════════════════════════════════════
+     LLE never "unrolls" anything. One local patch is treated as linear; the
+     SAME reconstruction weights wij are re-imposed in the low-dimensional
+     embedding, which falls out of an eigenproblem on (I−W).            ═══ -->
+<symbol id="t-qlle" viewBox="0 0 220 150">
+  <g fill="none" stroke-linecap="round">
+    <path d="M12 126C34 108 30 78 52 66C74 54 72 34 92 22" stroke="currentColor" stroke-width="1.3" opacity=".3"/>
+    <!-- the local linear patch -->
+    <path d="M38 88L74 52L44 58Z" fill="var(--accent)" fill-opacity=".1" stroke="none"/>
+    <g stroke="var(--accent)" stroke-width="1.3">
+      <path d="M56 68L38 88M56 68L74 52M56 68L44 58"/>
+    </g>
+    <g fill="currentColor" opacity=".5" stroke="none">
+      <circle cx="38" cy="88" r="2.6"/><circle cx="74" cy="52" r="2.6"/><circle cx="44" cy="58" r="2.6"/>
+      <circle cx="20" cy="114" r="2.6"/><circle cx="88" cy="28" r="2.6"/>
+    </g>
+    <circle cx="56" cy="68" r="3.6" fill="var(--accent)" stroke="none"/>
+
+    <!-- same weights, low-dimensional coordinates -->
+    <path d="M172 84L150 62L184 58Z" fill="var(--accent)" fill-opacity=".1" stroke="none"/>
+    <g stroke="var(--accent)" stroke-width="1.3">
+      <path d="M168 70L172 84M168 70L150 62M168 70L184 58"/>
+    </g>
+    <g fill="currentColor" opacity=".5" stroke="none">
+      <circle cx="172" cy="84" r="2.6"/><circle cx="150" cy="62" r="2.6"/><circle cx="184" cy="58" r="2.6"/>
+      <circle cx="140" cy="90" r="2.6"/><circle cx="196" cy="76" r="2.6"/>
+    </g>
+    <circle cx="168" cy="70" r="3.6" fill="var(--accent)" stroke="none"/>
+    <path d="M104 72h20" stroke="currentColor" stroke-width="1" opacity=".5" marker-end="url(#ah-sm)"/>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10.5" fill="var(--accent)">
+    <text x="62" y="54">w<tspan font-size="7" dy="2.5">ij</tspan></text>
+    <text x="172" y="52">w<tspan font-size="7" dy="2.5">ij</tspan></text>
+  </g>
+  <text x="114" y="62" text-anchor="middle" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+        font-size="10.5" fill="currentColor" opacity=".7">(I−W)</text>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8" text-anchor="middle" fill="currentColor" opacity=".5">
+    <text x="52" y="140">k-NN patch in R<tspan font-size="6.5" dy="-3.5">D</tspan></text>
+    <text x="170" y="140" fill="var(--accent)" opacity=".9">same weights in R<tspan font-size="6.5" dy="-3.5">d</tspan></text>
+  </g>
+</symbol>
+
+
+<!-- ═══ t-qcda ═══════════════════════════════════════════════════════════
+     A Fisher/LDA direction w = Σs^-1/2(μ1−μ0) is prepared as |w⟩; the label
+     is the overlap ⟨w|xt⟩ read out by a SWAP TEST. Adaptation happens
+     through per-domain whitening, not through an MMD term.             ═══ -->
+<symbol id="t-qcda" viewBox="0 0 220 150">
+  <!-- where |w> comes from -->
+  <g transform="translate(50 32)">
+    <ellipse rx="36" ry="17" fill="var(--accent)" fill-opacity=".07" stroke="var(--accent)"
+             stroke-width=".9" stroke-dasharray="3.5 2.5" opacity=".7" transform="rotate(-20)"/>
+    <circle cx="-22" cy="10" r="2.6" fill="currentColor" opacity=".7"/>
+    <circle cx="20" cy="-10" r="2.6" fill="currentColor" opacity=".7"/>
+    <path d="M-22 10L20-10" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#ah-t)" fill="none"/>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="9.5" fill="currentColor" opacity=".7">
+    <text x="14" y="50">μ<tspan font-size="6.5" dy="2">0</tspan></text>
+    <text x="72" y="24">μ<tspan font-size="6.5" dy="2">1</tspan></text>
+  </g>
+  <text x="52" y="16" font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10"
+        fill="var(--accent)">w = Σ<tspan font-size="6.5" dy="2">s</tspan><tspan font-size="6.5" dy="-6">−1/2</tspan><tspan font-size="10" dy="4">(μ₁−μ₀)</tspan></text>
+
+  <!-- swap test -->
+  <g fill="none" stroke="currentColor">
+    <g stroke-width=".9" opacity=".45"><path d="M42 84h150M42 108h150M42 132h150"/></g>
+    <g stroke-width="1.3" opacity=".85">
+      <rect x="58" y="77" width="14" height="14" rx="1.5"/>
+      <rect x="150" y="77" width="14" height="14" rx="1.5"/>
+    </g>
+    <!-- controlled swap -->
+    <path d="M110 84v48" stroke-width="1.2" opacity=".7"/>
+    <g stroke-width="1.4" opacity=".8">
+      <path d="M105 103l10 10M115 103l-10 10M105 127l10 10M115 127l-10 10" transform="translate(0 0)"/>
+    </g>
+    <circle cx="110" cy="84" r="2.6" fill="currentColor" stroke="none" opacity=".85"/>
+    <!-- meter -->
+    <rect x="172" y="76" width="16" height="16" rx="2" stroke-width="1.3"/>
+    <path d="M175 88a5 5 0 0 1 10 0" stroke-width="1"/><path d="M180 88l4.5-4.5" stroke-width="1"/>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8" fill="currentColor" opacity=".6">
+    <text x="22" y="87">|0⟩</text>
+    <text x="63" y="87" fill="currentColor" opacity="1">H</text>
+    <text x="155" y="87" fill="currentColor" opacity="1">H</text>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10">
+    <text x="18" y="112" fill="var(--accent)">|w⟩</text>
+    <text x="16" y="136" fill="currentColor" opacity=".7">|x<tspan font-size="6.5" dy="2">t</tspan><tspan font-size="10" dy="-2">⟩</tspan></text>
+    <text x="214" y="70" text-anchor="end" fill="var(--accent)" font-size="9.5">⟨w|x<tspan font-size="6.5" dy="2">t</tspan><tspan font-size="9.5" dy="-2">⟩</tspan></text>
+  </g>
+</symbol>
+
+
+<!-- ═══ t-metrology ══════════════════════════════════════════════════════
+     The enhancement is in TIME, not particle number: a coupled oscillator
+     chain whose non-commuting generator makes the QFI grow as e^{2gT}
+     instead of the T² of a standard probe. No NOON states, no interferometer.
+     ═══ -->
+<symbol id="t-metrology" viewBox="0 0 220 150">
+  <!-- oscillator chain; only the first mode sees the signal -->
+  <g fill="none" stroke="currentColor">
+    <g stroke-width="1" opacity=".5"><path d="M34 44h16M68 44h16M102 44h16"/></g>
+    <circle cx="24" cy="44" r="10" stroke-width="1.4" fill="var(--accent)" fill-opacity=".13" stroke="var(--accent)"/>
+    <circle cx="58" cy="44" r="10" stroke-width="1.2" opacity=".6"/>
+    <circle cx="92" cy="44" r="10" stroke-width="1.2" opacity=".6"/>
+    <circle cx="126" cy="44" r="10" stroke-width="1.2" opacity=".6"/>
+    <g stroke-width=".9" opacity=".45">
+      <path d="M19 44h10M54 44h8M88 44h8M122 44h8"/>
+    </g>
+    <path d="M24 22v10" stroke="var(--accent)" stroke-width="1.4" marker-end="url(#ah-sm-t)"/>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10">
+    <text x="24" y="18" text-anchor="middle" fill="var(--accent)">f</text>
+    <text x="42" y="36" text-anchor="middle" fill="currentColor" opacity=".6" font-size="9">g</text>
+  </g>
+  <text x="150" y="48" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".45">ancillas</text>
+
+  <!-- QFI scaling in time -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M26 128h170M26 128V70" stroke="currentColor" stroke-width="1" opacity=".4"/>
+    <path d="M26 128C90 122 130 112 190 96" stroke="currentColor" stroke-width="1.4" opacity=".5"/>
+    <path d="M26 128C86 126 120 112 148 72" stroke="var(--accent)" stroke-width="2"/>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10">
+    <text x="8" y="76" fill="currentColor" opacity=".7">F<tspan font-size="6.5" dy="2">Q</tspan></text>
+    <text x="200" y="132" fill="currentColor" opacity=".7">T</text>
+    <text x="152" y="70" fill="var(--accent)" font-size="10.5">e<tspan font-size="7" dy="-4">2gT</tspan></text>
+    <text x="196" y="92" text-anchor="end" fill="currentColor" opacity=".5" font-size="9.5">T<tspan font-size="6.5" dy="-3.5">2</tspan></text>
+  </g>
+</symbol>
+
+
+<!-- ═══ t-citnet ═════════════════════════════════════════════════════════
+     DDConv: the 3×3 sampling grid is displaced per-location by learned
+     offsets Δφ AND its kernel is generated dynamically per input. Left shows
+     the bent stencil; right shows the two parallel U-branches cross-feeding.
+     ═══ -->
+<symbol id="t-citnet" viewBox="0 0 220 150">
+  <!-- deformable sampling stencil -->
+  <g>
+    <g fill="none" stroke="currentColor" stroke-width=".9" opacity=".4">
+      <circle cx="24" cy="46" r="2"/><circle cx="42" cy="46" r="2"/><circle cx="60" cy="46" r="2"/>
+      <circle cx="24" cy="64" r="2"/><circle cx="42" cy="64" r="2"/><circle cx="60" cy="64" r="2"/>
+      <circle cx="24" cy="82" r="2"/><circle cx="42" cy="82" r="2"/><circle cx="60" cy="82" r="2"/>
+    </g>
+    <g fill="var(--accent)">
+      <circle cx="18" cy="40" r="2.4"/><circle cx="45" cy="38" r="2.4"/><circle cx="66" cy="50" r="2.4"/>
+      <circle cx="20" cy="70" r="2.4"/><circle cx="42" cy="64" r="2.4"/><circle cx="68" cy="60" r="2.4"/>
+      <circle cx="28" cy="90" r="2.4"/><circle cx="48" cy="88" r="2.4"/><circle cx="64" cy="76" r="2.4"/>
+    </g>
+    <g stroke="var(--accent)" stroke-width=".9" opacity=".65" fill="none">
+      <path d="M24 46L18.8 41" marker-end="url(#ah-sm-t)"/>
+      <path d="M60 46L65 49.2" marker-end="url(#ah-sm-t)"/>
+      <path d="M24 82L27.4 88.4" marker-end="url(#ah-sm-t)"/>
+      <path d="M60 82L63.4 77.4" marker-end="url(#ah-sm-t)"/>
+    </g>
+  </g>
+  <text x="42" y="108" text-anchor="middle" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+        font-size="10" fill="var(--accent)">Δφ<tspan font-size="6.5" dy="2">m</tspan></text>
+  <text x="42" y="124" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".5">DDConv stencil</text>
+  <text x="42" y="26" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".5">3×3 grid</text>
+
+  <path d="M92 20v112" stroke="currentColor" stroke-width=".9" opacity=".25" fill="none"/>
+
+  <!-- two parallel U-branches feeding each other's decoder -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M112 34L134 56L156 34" stroke="currentColor" stroke-width="1.5" opacity=".7"/>
+    <path d="M112 116L134 94L156 116" stroke="var(--accent)" stroke-width="1.5"/>
+    <g stroke="var(--accent)" stroke-width="1" opacity=".7" stroke-dasharray="3 2.5">
+      <path d="M140 60L150 108" marker-end="url(#ah-sm-t)"/>
+    </g>
+    <g stroke="currentColor" stroke-width="1" opacity=".5" stroke-dasharray="3 2.5">
+      <path d="M128 90L118 42" marker-end="url(#ah-sm)"/>
+    </g>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8" fill="currentColor">
+    <text x="166" y="38" opacity=".7">CNN</text>
+    <text x="166" y="120" fill="var(--accent)">ViT</text>
+    <text x="134" y="144" text-anchor="middle" opacity=".5">decoders cross-feed</text>
+  </g>
+</symbol>
+
+<!-- ═══ t-genn ═══════════════════════════════════════════════════════════
+     Knowledge enhancement is a WEIGHT-SPACE exchange between two nets trained
+     from different initialisations: their dead kernels sit at DIFFERENT
+     indices, so averaging revives them. Not distillation, not pruning. ═══ -->
+<symbol id="t-genn" viewBox="0 0 220 150">
+  <!-- N1 -->
+  <g transform="translate(40 28)">
+    <g fill="currentColor" opacity=".65" stroke="none">
+      <rect x="0" y="0" width="11" height="11" rx="1"/><rect x="34" y="0" width="11" height="11" rx="1"/>
+      <rect x="51" y="0" width="11" height="11" rx="1"/><rect x="85" y="0" width="11" height="11" rx="1"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="1" opacity=".4" stroke-dasharray="2 2">
+      <rect x="17" y="0" width="11" height="11" rx="1"/><rect x="68" y="0" width="11" height="11" rx="1"/>
+    </g>
+  </g>
+  <!-- N2: dead kernels at DIFFERENT positions -->
+  <g transform="translate(40 78)">
+    <g fill="currentColor" opacity=".65" stroke="none">
+      <rect x="17" y="0" width="11" height="11" rx="1"/><rect x="34" y="0" width="11" height="11" rx="1"/>
+      <rect x="68" y="0" width="11" height="11" rx="1"/><rect x="85" y="0" width="11" height="11" rx="1"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="1" opacity=".4" stroke-dasharray="2 2">
+      <rect x="0" y="0" width="11" height="11" rx="1"/><rect x="51" y="0" width="11" height="11" rx="1"/>
+    </g>
+  </g>
+  <!-- index-aligned weight exchange, both directions -->
+  <g fill="none" stroke="var(--accent)" stroke-width="1.2">
+    <path d="M62.5 76L62.5 46" marker-end="url(#ah-sm-t)"/>
+    <path d="M96.5 44L96.5 74" marker-end="url(#ah-sm-t)"/>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8.5" fill="currentColor" opacity=".65">
+    <text x="20" y="38">N1</text><text x="20" y="88">N2</text>
+  </g>
+  <text x="150" y="62" font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10"
+        fill="var(--accent)">λW<tspan font-size="6.5" dy="2">i</tspan><tspan font-size="10" dy="-2">+(1−λ)W′</tspan><tspan font-size="6.5" dy="2">i</tspan></text>
+  <text x="132" y="20" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".5">dead kernels differ</text>
+
+  <!-- dict-attention over the whole training set -->
+  <g fill="none" stroke="var(--accent)" stroke-width="1.3">
+    <rect x="40" y="108" width="140" height="12" rx="1.5"/>
+    <g stroke-width=".8" opacity=".5"><path d="M75 108v12M110 108v12M145 108v12"/></g>
+  </g>
+  <g fill="none" stroke="currentColor" stroke-width=".9" opacity=".4">
+    <path d="M57 132v-12M92 132v-12M127 132v-12M162 132v-12"/>
+  </g>
+  <g fill="currentColor" opacity=".5" stroke="none">
+    <rect x="51" y="132" width="12" height="10" rx="1"/><rect x="86" y="132" width="12" height="10" rx="1"/>
+    <rect x="121" y="132" width="12" height="10" rx="1"/><rect x="156" y="132" width="12" height="10" rx="1"/>
+  </g>
+  <text x="188" y="118" font-family="ui-monospace,Consolas,monospace" font-size="7.5"
+        fill="var(--accent)" opacity=".9">dict</text>
+</symbol>
+
+<!-- === t-qlr =========================================================
+     The content of this paper is the CIRCUIT: a Hamiltonian carrying
+     XtX + lambda I, phase estimation, then the 1/lambda ancilla rotation.
+     A scatter-and-fit-line picture would say nothing about it.      === -->
+<symbol id="t-qlr" viewBox="0 0 220 150">
+  <g fill="none" stroke="currentColor">
+    <g stroke-width=".9" opacity=".45"><path d="M36 36h164M36 68h164M36 100h164"/></g>
+    <path d="M46 63l6 10" stroke-width=".9" opacity=".5"/>
+    <g stroke-width="1.3" opacity=".85">
+      <rect x="58" y="61" width="14" height="14" rx="1.5"/>
+      <rect x="96" y="90" width="30" height="18" rx="1.5"/>
+      <rect x="134" y="60" width="26" height="16" rx="1.5"/>
+      <rect x="168" y="28" width="24" height="16" rx="1.5" stroke="var(--accent)"/>
+    </g>
+    <path d="M111 68v22" stroke-width="1.1" opacity=".7"/>
+    <path d="M180 44v24" stroke-width="1.1" stroke="var(--accent)"/>
+  </g>
+  <circle cx="111" cy="68" r="2.6" fill="currentColor" opacity=".85"/>
+  <circle cx="180" cy="68" r="2.6" fill="var(--accent)"/>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8" fill="currentColor">
+    <text x="12" y="39" opacity=".6">|0&#10217;</text>
+    <text x="12" y="71" opacity=".6">|0&#10217;</text>
+    <text x="54" y="61" font-size="6.5" opacity=".55">t</text>
+    <text x="65" y="72" text-anchor="middle" opacity=".9">H</text>
+    <text x="147" y="71" text-anchor="middle" font-size="7.5" opacity=".9">QFT&#8224;</text>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10">
+    <text x="12" y="103" fill="currentColor" opacity=".7">|y&#10217;</text>
+    <text x="111" y="104" text-anchor="middle" fill="currentColor" opacity=".9">e<tspan font-size="7" dy="-4">iAt</tspan></text>
+    <text x="180" y="40" text-anchor="middle" fill="var(--accent)" font-size="9.5">R(1/&#955;)</text>
+  </g>
+  <path d="M111 112v8h-24" stroke="var(--accent)" stroke-width=".9" fill="none" opacity=".8"/>
+  <text x="84" y="123" text-anchor="end" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+        font-size="10.5" fill="var(--accent)">A = X<tspan font-size="7" dy="-4">&#8868;</tspan><tspan font-size="10.5" dy="4">X + &#955;I</tspan></text>
+  <text x="200" y="142" text-anchor="end" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".5">A&#8315;&#185; by phase estimation</text>
+</symbol>
+
+
+<!-- === t-manifold ====================================================
+     Isomap: the GEODESIC along the k-NN graph, not the straight chord
+     through ambient space, is the distance that matters.            === -->
+<symbol id="t-manifold" viewBox="0 0 220 150">
+  <g fill="none" stroke-linecap="round">
+    <path d="M20 122C40 100 30 70 52 54C74 38 66 26 96 18" stroke="currentColor" stroke-width="1.1" opacity=".28"/>
+    <path d="M32 130C52 108 42 78 64 62C86 46 78 34 108 26" stroke="currentColor" stroke-width="1.1" opacity=".28"/>
+    <g stroke="var(--accent)" stroke-width="1.5">
+      <path d="M26 126L38 100L36 76L58 58L72 44L88 30L102 22"/>
+    </g>
+    <path d="M26 126L102 22" stroke="currentColor" stroke-width="1.1" stroke-dasharray="4 3" opacity=".55"/>
+  </g>
+  <g fill="currentColor" opacity=".6" stroke="none">
+    <circle cx="38" cy="100" r="2.5"/><circle cx="36" cy="76" r="2.5"/><circle cx="58" cy="58" r="2.5"/>
+    <circle cx="72" cy="44" r="2.5"/><circle cx="88" cy="30" r="2.5"/>
+  </g>
+  <circle cx="26" cy="126" r="3.4" fill="var(--accent)"/>
+  <circle cx="102" cy="22" r="3.4" fill="var(--accent)"/>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10">
+    <text x="14" y="140" fill="var(--accent)">i</text>
+    <text x="108" y="20" fill="var(--accent)">j</text>
+    <text x="14" y="86" fill="var(--accent)" font-size="10.5">d<tspan font-size="7" dy="2">G</tspan></text>
+    <text x="70" y="94" fill="currentColor" opacity=".6" font-size="9.5">&#8214;x<tspan font-size="6.5" dy="2">i</tspan><tspan font-size="9.5" dy="-2">&#8722;x</tspan><tspan font-size="6.5" dy="2">j</tspan><tspan font-size="9.5" dy="-2">&#8214;</tspan></text>
+  </g>
+  <path d="M124 74h20" stroke="currentColor" stroke-width="1" opacity=".5" marker-end="url(#ah-sm)" fill="none"/>
+  <text x="134" y="66" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="7.5"
+        fill="currentColor" opacity=".55">eigsolve</text>
+  <path d="M152 74h58" stroke="currentColor" stroke-width="1" opacity=".25" fill="none"/>
+  <g fill="var(--accent)" stroke="none">
+    <circle cx="156" cy="74" r="2.6"/><circle cx="166" cy="74" r="2.6"/><circle cx="176" cy="74" r="2.6"/>
+    <circle cx="186" cy="74" r="2.6"/><circle cx="196" cy="74" r="2.6"/><circle cx="206" cy="74" r="2.6"/>
+  </g>
+  <text x="181" y="96" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".5">R<tspan font-size="6.5" dy="-3.5">d</tspan></text>
+</symbol>
+
+
+<!-- === t-qjda ========================================================
+     JDA aligns the marginal (one global term M0) AND every class
+     conditional (the Mc terms, from pseudo-labels). One arrow alone
+     would be TCA.                                                   === -->
+<symbol id="t-qjda" viewBox="0 0 220 150">
+  <g fill="currentColor" opacity=".55" stroke="none">
+    <circle cx="34" cy="34" r="2.5"/><circle cx="46" cy="28" r="2.5"/><circle cx="40" cy="44" r="2.5"/>
+    <circle cx="30" cy="76" r="2.5"/><circle cx="44" cy="84" r="2.5"/><circle cx="34" cy="92" r="2.5"/>
+  </g>
+  <g fill="none" stroke="var(--accent)" stroke-width="1.3">
+    <circle cx="120" cy="52" r="2.5"/><circle cx="132" cy="44" r="2.5"/><circle cx="126" cy="62" r="2.5"/>
+    <circle cx="116" cy="98" r="2.5"/><circle cx="130" cy="106" r="2.5"/><circle cx="120" cy="114" r="2.5"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.4" opacity=".85" fill="none">
+    <path d="M36 32l6 6M42 32l-6 6"/><path d="M33 82l6 6M39 82l-6 6"/>
+  </g>
+  <g stroke="var(--accent)" stroke-width="1.4" fill="none">
+    <path d="M122 50l6 6M128 50l-6 6"/><path d="M119 104l6 6M125 104l-6 6"/>
+  </g>
+  <g fill="none" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="3.5 2.5">
+    <path d="M50 37L114 50" marker-end="url(#ah-sm-t)"/>
+    <path d="M47 87L111 105" marker-end="url(#ah-sm-t)"/>
+  </g>
+  <circle cx="38" cy="60" r="3" fill="currentColor" opacity=".8"/>
+  <circle cx="124" cy="79" r="3" fill="var(--accent)"/>
+  <path d="M43 62L118 77" stroke="currentColor" stroke-width="1.3" opacity=".8" fill="none" marker-end="url(#ah-sm)"/>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="11">
+    <text x="76" y="76" fill="currentColor" opacity=".85">M<tspan font-size="7" dy="2.5">0</tspan></text>
+    <text x="74" y="36" fill="var(--accent)">M<tspan font-size="7" dy="2.5">c</tspan></text>
+    <text x="72" y="112" fill="var(--accent)">M<tspan font-size="7" dy="2.5">c</tspan></text>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8" fill="currentColor" opacity=".5">
+    <text x="150" y="32">marginal +</text>
+    <text x="150" y="43">conditional</text>
+    <text x="150" y="134" fill="var(--accent)" opacity=".9">pseudo-labels</text>
+  </g>
+</symbol>
+
+
+<!-- === t-qksa ========================================================
+     The kernel map Phi makes the data separable FIRST; only then are the
+     two bases aligned by a unitary. That first step is what separates
+     this from plain subspace alignment.                             === -->
+<symbol id="t-qksa" viewBox="0 0 220 150">
+  <g fill="none" stroke="currentColor" stroke-width="1" opacity=".35">
+    <path d="M14 92c0-20 34-26 34-6s-30 24-30 4z"/>
+  </g>
+  <g fill="currentColor" opacity=".55" stroke="none">
+    <circle cx="22" cy="86" r="2.2"/><circle cx="34" cy="78" r="2.2"/><circle cx="42" cy="90" r="2.2"/>
+    <circle cx="28" cy="96" r="2.2"/>
+  </g>
+  <path d="M56 84h20" stroke="var(--accent)" stroke-width="1.1" fill="none" marker-end="url(#ah-sm-t)"/>
+  <text x="66" y="76" text-anchor="middle" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+        font-size="11" fill="var(--accent)">&#934;(x)</text>
+  <g transform="translate(112 104)" fill="none" stroke-linecap="round">
+    <path d="M0 0L46-17" stroke="currentColor" stroke-width="1.6" opacity=".8" marker-end="url(#ah)"/>
+    <path d="M0 0L17 46" stroke="currentColor" stroke-width="1.6" opacity=".8" marker-end="url(#ah)"/>
+    <path d="M0 0L46-40" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#ah-t)"/>
+    <path d="M32-12a34 34 0 0 0 4-16" stroke="var(--accent)" stroke-width=".9" opacity=".85" marker-end="url(#ah-sm-t)"/>
+    <circle r="2.1" fill="currentColor"/>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10">
+    <text x="162" y="86" fill="currentColor" opacity=".7">P<tspan font-size="6.5" dy="2">s</tspan></text>
+    <text x="162" y="60" fill="var(--accent)">P<tspan font-size="6.5" dy="2">t</tspan></text>
+  </g>
+  <text x="150" y="30" text-anchor="middle" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+        font-size="11" fill="var(--accent)">U<tspan font-size="7" dy="2.5">M</tspan></text>
+  <text x="146" y="142" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".5">align in feature space</text>
+</symbol>
+
+
+<!-- === t-carbon ======================================================
+     The three axes the review itself declares: precursor selection,
+     carbon nano-dimension 0D-3D, heteroatom doping - then the
+     electrochemical signature.                                      === -->
+<symbol id="t-carbon" viewBox="0 0 220 150">
+  <path d="M14 76h190" stroke="currentColor" stroke-width=".9" opacity=".3" fill="none" marker-end="url(#ah-sm)"/>
+  <g fill="none" stroke="currentColor" stroke-width="1.1" opacity=".65" transform="translate(14 54)">
+    <path d="M8 0l7 4v8l-7 4-7-4V4z"/><path d="M22 0l7 4v8l-7 4-7-4V4z"/>
+    <path d="M15 12l7 4v8l-7 4-7-4v-8z"/><path d="M29 12l7 4v8l-7 4-7-4v-8z"/>
+  </g>
+  <text x="32" y="112" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".55">biomass</text>
+  <g transform="translate(66 54)">
+    <circle cx="7" cy="7" r="4" fill="currentColor" opacity=".6"/>
+    <rect x="19" y="4" width="16" height="6" rx="3" fill="none" stroke="currentColor" stroke-width="1.1" opacity=".65"/>
+    <path d="M2 30l12-6 12 3-12 6z" fill="none" stroke="currentColor" stroke-width="1.1" opacity=".65"/>
+    <g fill="none" stroke="currentColor" stroke-width="1.1" opacity=".65">
+      <rect x="22" y="22" width="15" height="15"/><circle cx="26" cy="26" r="1.7"/><circle cx="33" cy="26" r="1.7"/>
+      <circle cx="26" cy="33" r="1.7"/><circle cx="33" cy="33" r="1.7"/>
+    </g>
+  </g>
+  <text x="86" y="112" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".55">0D&#8211;3D</text>
+  <g transform="translate(120 56)">
+    <g fill="none" stroke="currentColor" stroke-width="1.1" opacity=".5">
+      <path d="M8 0l7 4v8l-7 4-7-4V4z"/><path d="M22 0l7 4v8l-7 4-7-4V4z"/>
+      <path d="M15 12l7 4v8l-7 4-7-4v-8z"/>
+    </g>
+    <circle cx="8" cy="8" r="3.2" fill="var(--accent)"/>
+    <circle cx="22" cy="20" r="3.2" fill="var(--accent)"/>
+  </g>
+  <text x="134" y="112" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="var(--accent)" opacity=".9">N / O doping</text>
+  <g transform="translate(164 48)">
+    <path d="M2 46h46M2 46V6" stroke="currentColor" stroke-width=".9" opacity=".35" fill="none"/>
+    <path d="M9 34c0-9 4-12 10-12h20c5 0 8 3 8 8s-4 12-10 12H17c-5 0-8-3-8-8z"
+          fill="var(--accent)" fill-opacity=".1" stroke="var(--accent)" stroke-width="1.4"/>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="9" fill="currentColor" opacity=".55">
+    <text x="157" y="56">I</text><text x="212" y="100">V</text>
+  </g>
+  <text x="190" y="124" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".55">capacitance</text>
+</symbol>
+
+
+<!-- === t-tjunction ===================================================
+     An E-PLANE tee: the side arm leaves the BROAD wall, so the E field
+     in the two output arms points in opposite directions - that is the
+     180 deg. An H-plane tee would be in-phase and the wrong device. === -->
+<symbol id="t-tjunction" viewBox="0 0 220 150">
+  <g fill="none" stroke="currentColor" stroke-linecap="round">
+    <g stroke-width="1.6" opacity=".75">
+      <path d="M16 62h82M122 62h82"/>
+      <path d="M16 92h188"/>
+      <path d="M98 62V22M122 62V22"/>
+    </g>
+    <g stroke-width="1.4" opacity=".5">
+      <path d="M16 56v42M204 56v42M92 22h36"/>
+    </g>
+  </g>
+  <!-- anti-phase E field: down in the left arm, up in the right -->
+  <g stroke="var(--accent)" stroke-width="1.5" fill="none">
+    <path d="M42 68v16" marker-end="url(#ah-sm-t)"/>
+    <path d="M62 68v16" marker-end="url(#ah-sm-t)"/>
+    <path d="M158 86V70" marker-end="url(#ah-sm-t)"/>
+    <path d="M178 86V70" marker-end="url(#ah-sm-t)"/>
+  </g>
+  <g stroke="var(--accent)" stroke-width="1.4" fill="none">
+    <path d="M110 46V30" marker-end="url(#ah-sm-t)"/>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8.5" fill="currentColor">
+    <text x="110" y="16" text-anchor="middle" opacity=".7">P1</text>
+    <text x="16" y="112" opacity=".7">P2</text>
+    <text x="204" y="112" text-anchor="end" opacity=".7">P3</text>
+    <text x="34" y="112" fill="var(--accent)">0&#176;</text>
+    <text x="186" y="112" text-anchor="end" fill="var(--accent)">180&#176;</text>
+    <text x="110" y="132" text-anchor="middle" opacity=".5">E-plane tee, TE&#8321;&#8320;</text>
+  </g>
+  <text x="122" y="42" font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10"
+        fill="var(--accent)">E</text>
+</symbol>
+
+
+<!-- === t-pat-ridge ===================================================
+     Ridge guide: the ridge stops SHORT of the opposite wall and the field
+     lives in that gap. Coupling is taken through a hole cut across the
+     ridge itself, into an auxiliary structure below.                === -->
+<symbol id="t-pat-ridge" viewBox="0 0 220 150">
+  <g fill="none" stroke="currentColor" stroke-linecap="square">
+    <!-- main pipe -->
+    <g stroke-width="1.5" opacity=".75">
+      <path d="M46 18h128v54h-42M104 72H46z"/>
+    </g>
+    <!-- auxiliary structure below, joined through the coupling aperture -->
+    <g stroke-width="1.4" opacity=".55">
+      <path d="M46 80h58M132 80h42v42H46V80"/>
+    </g>
+    <!-- the ridge: attached to one wall, stopping short of the other -->
+    <g stroke-width="1.5" opacity=".8">
+      <path d="M104 72V40h28v32"/>
+    </g>
+    <!-- ridge hole cut transversely through the ridge -->
+    <rect x="104" y="50" width="28" height="16" fill="none" stroke="currentColor"
+          stroke-width="1.1" stroke-dasharray="3 2" opacity=".7"/>
+  </g>
+  <!-- E squeezed into the gap -->
+  <g stroke="var(--accent)" stroke-width="1.4" fill="none">
+    <path d="M112 38V24" marker-end="url(#ah-sm-t)"/>
+    <path d="M118 38V24" marker-end="url(#ah-sm-t)"/>
+    <path d="M124 38V24" marker-end="url(#ah-sm-t)"/>
+  </g>
+  <path d="M104 76h28" stroke="var(--accent)" stroke-width="2" fill="none"/>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8" fill="currentColor" opacity=".65">
+    <text x="140" y="34" fill="var(--accent)" opacity=".95">gap g</text>
+    <text x="140" y="62">hole 5</text>
+    <text x="140" y="94" fill="var(--accent)" opacity=".95">aperture 4</text>
+    <text x="80" y="46">ridge 2</text>
+    <text x="52" y="112" opacity=".8">aux 1a</text>
+    <text x="110" y="140" text-anchor="middle" opacity=".55">transverse cross-section</text>
+  </g>
+</symbol>
+
+
+<!-- === t-pat-filter ==================================================
+     NOT an in-line cavity chain. The ridge crest runs unbroken; a row of
+     holes cut through the ridge body couples the guide sideways into one
+     auxiliary cavity underneath.                                    === -->
+<symbol id="t-pat-filter" viewBox="0 0 220 150">
+  <g fill="none" stroke="currentColor" stroke-linecap="square">
+    <path d="M16 24h188" stroke-width="1.5" opacity=".7"/>
+    <path d="M16 48h188" stroke-width="2.2" opacity=".85"/>
+    <path d="M16 48v28h188V48" stroke-width="1.3" opacity=".5"/>
+    <path d="M16 88h188v34H16z" stroke-width="1.4" opacity=".55"/>
+  </g>
+  <!-- holes through the ridge body, and the apertures they open -->
+  <g fill="none" stroke="currentColor" stroke-width="1.1" opacity=".75">
+    <rect x="42" y="52" width="20" height="22"/><rect x="86" y="52" width="20" height="22"/>
+    <rect x="130" y="52" width="20" height="22"/><rect x="174" y="52" width="20" height="22"/>
+  </g>
+  <g stroke="var(--accent)" stroke-width="2" fill="none">
+    <path d="M42 82h20M86 82h20M130 82h20M174 82h20"/>
+  </g>
+  <!-- the guided field lives in the gap above the crest -->
+  <g stroke="var(--accent)" stroke-width="1.3" fill="none">
+    <path d="M24 44V30" marker-end="url(#ah-sm-t)"/><path d="M30 44V30" marker-end="url(#ah-sm-t)"/>
+  </g>
+  <path d="M62 40h24" stroke="currentColor" stroke-width=".8" opacity=".45" fill="none"
+        marker-start="url(#ah-sm)" marker-end="url(#ah-sm)"/>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8" fill="currentColor" opacity=".6">
+    <text x="74" y="37" text-anchor="middle" fill="var(--accent)" opacity=".95">d</text>
+    <text x="16" y="18">in</text>
+    <text x="204" y="18" text-anchor="end">out</text>
+    <text x="20" y="70" opacity=".8">ridge 2</text>
+    <text x="110" y="108" text-anchor="middle" opacity=".8">auxiliary cavity 3</text>
+    <text x="110" y="140" text-anchor="middle" opacity=".55">crest unbroken; holes couple sideways</text>
+  </g>
+</symbol>
+
+<!-- === t-pat-omt =====================================================
+     The common port is a CROSS aperture - a wide flat guide crossing a
+     tall narrow one - so the two orthogonal polarisations separate by
+     geometry. Not a circular OMT.                                   === -->
+<symbol id="t-pat-omt" viewBox="0 0 220 150">
+  <!-- end-on view of the cross port -->
+  <g fill="none" stroke="currentColor" stroke-width="1.5" opacity=".8">
+    <path d="M12 56h22V26h22v30h22v24H78v30H56V80H34V56z"/>
+  </g>
+  <g stroke="currentColor" stroke-width=".8" opacity=".3" stroke-dasharray="5 3" fill="none">
+    <path d="M45 18v100M6 68h84"/>
+  </g>
+  <g stroke="var(--accent)" stroke-width="1.5" fill="none">
+    <path d="M22 58v20" marker-start="url(#ah-sm-t)" marker-end="url(#ah-sm-t)"/>
+    <path d="M36 36h18" marker-start="url(#ah-sm-t)" marker-end="url(#ah-sm-t)"/>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8" fill="var(--accent)">
+    <text x="10" y="94">E&#8741;y</text>
+    <text x="60" y="34">E&#8741;x</text>
+  </g>
+  <text x="46" y="136" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".55">cross common port</text>
+
+  <!-- the two guide groups crossing, seen from the side -->
+  <g fill="none" stroke="currentColor">
+    <path d="M118 60h84v20h-84z" stroke-width="1.5" opacity=".75"/>
+    <path d="M146 30h20v80h-20z" stroke-width="1.5" opacity=".5"/>
+    <path d="M118 44v52" stroke-width="1.4" opacity=".55"/>
+  </g>
+  <g stroke="currentColor" stroke-width=".8" opacity=".3" stroke-dasharray="5 3" fill="none">
+    <path d="M156 22v96"/>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8" fill="currentColor" opacity=".65">
+    <text x="112" y="56" text-anchor="end">A</text>
+    <text x="206" y="74">B</text>
+    <text x="156" y="126" text-anchor="middle">C</text>
+    <text x="182" y="26" text-anchor="middle" opacity=".8">mirror</text>
+  </g>
+</symbol>
+</defs></svg>

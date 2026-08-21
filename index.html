@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="auto">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+
+<title>Xi He — Quantum Machine Learning</title>
+<meta name="description" content="Xi He is a Research Associate in the Department of Physics at The University of Texas at Dallas, working on quantum machine learning, AI for quantum error correction, and deep-learning-enhanced quantum information extraction.">
+<meta name="author" content="Xi He">
+<meta name="keywords" content="Xi He, quantum machine learning, quantum error correction, quantum computing, quantum information, domain adaptation, UT Dallas, Bei Zeng">
+
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Xi He — Quantum Machine Learning">
+<meta property="og:description" content="Research Associate, Department of Physics, The University of Texas at Dallas.">
+<meta property="og:url" content="https://xh-xihe.github.io/">
+<meta property="og:image" content="https://xh-xihe.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Xi He — Quantum Machine Learning and Quantum Error Correction, Research Associate, Department of Physics, The University of Texas at Dallas">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="canonical" href="https://xh-xihe.github.io/">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+<!-- Fonts are self-hosted: no third-party requests, and the page renders
+     identically behind the Great Firewall where fonts.googleapis.com is blocked. -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-400-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/source-serif-4-400-latin.woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="styles.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Xi He",
+  "jobTitle": "Research Associate",
+  "email": "mailto:Xi.He@utdallas.edu",
+  "url": "https://xh-xihe.github.io/",
+  "affiliation": {
+    "@type": "CollegeOrUniversity",
+    "name": "The University of Texas at Dallas",
+    "department": "Department of Physics"
+  },
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "University of Electronic Science and Technology of China"
+  },
+  "knowsAbout": ["Quantum machine learning", "Quantum error correction", "Quantum information", "Domain adaptation", "Deep learning"],
+  "sameAs": [
+    "https://scholar.google.com/citations?user=RgjSHxwAAAAJ",
+    "https://github.com/xh-xihe"
+  ]
+}
+</script>
+
+<!-- Set theme + language before first paint to avoid a flash. -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('xihe-theme') || 'auto';
+    document.documentElement.setAttribute('data-theme', t);
+    var saved = localStorage.getItem('xihe-lang');
+    var nav = (navigator.language || 'en').toLowerCase();
+    document.documentElement.setAttribute('lang',
+      (saved === 'en' || saved === 'zh') ? saved : (nav.indexOf('zh') === 0 ? 'zh' : 'en'));
+  } catch (e) {}
+})();
+</script>
+</head>
+
+<body>
+<div class="ground" aria-hidden="true">
+  <i class="g1"></i><i class="g2"></i><i class="g3"></i><i class="g4"></i>
+</div>
+<a class="skip" href="#main"><span class="en">Skip to content</span><span class="zh">跳到主要内容</span></a>
+
+<div class="shell">
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     LEFT RAIL — identity, always visible on desktop
+     ═══════════════════════════════════════════════════════════════════ -->
+<header class="rail" id="rail">
+  <div class="rail-inner">
+
+    <div class="portrait">
+      <!-- Drop an 800×800 (or larger) square photo at assets/profile.jpg and it
+           appears automatically. Until then the monogram below is shown. -->
+      <img src="assets/profile.jpg" alt="Portrait of Xi He" width="168" height="168"
+           onerror="this.closest('.portrait').classList.add('no-photo'); this.remove();">
+      <span class="portrait-fallback" aria-hidden="true">XH</span>
+    </div>
+
+    <h1 class="rail-name">Xi He</h1>
+    <p class="rail-role">
+      <span class="en">Research Associate</span>
+      <span class="zh">助理研究员</span>
+    </p>
+    <p class="rail-aff">
+      <span class="en">Department of Physics<br>The University of Texas at Dallas</span>
+      <span class="zh">物理系<br>德克萨斯大学达拉斯分校</span>
+    </p>
+
+    <ul class="rail-links" role="list" lang="en">
+      <li><a href="mailto:Xi.He@utdallas.edu" data-copy="Xi.He@utdallas.edu">
+        <span class="mk" aria-hidden="true">✉️</span><span>Xi.He@utdallas.edu</span></a></li>
+      <li><a href="https://scholar.google.com/citations?user=RgjSHxwAAAAJ&amp;hl=en" target="_blank" rel="noopener">
+        <span class="mk" aria-hidden="true">🎓</span><span>Google Scholar</span></a></li>
+      <li><a href="https://github.com/xh-xihe" target="_blank" rel="noopener">
+        <span class="mk" aria-hidden="true">💻</span><span>GitHub</span></a></li>
+      <li><a href="cv.pdf" target="_blank" rel="noopener">
+        <span class="mk" aria-hidden="true">📄</span><span>Curriculum Vitae</span></a></li>
+      <li class="rail-loc">
+        <span class="mk" aria-hidden="true">📍</span><span>Richardson, TX, USA</span></li>
+    </ul>
+
+    <nav class="rail-nav" aria-label="Sections">
+      <a href="#about"><span class="en">About</span><span class="zh">简介</span></a>
+      <a href="#research"><span class="en">Research</span><span class="zh">研究方向</span></a>
+      <a href="#publications"><span class="en">Publications</span><span class="zh">论文</span></a>
+      <a href="#talks"><span class="en">Talks</span><span class="zh">报告</span></a>
+      <a href="#cv"><span class="en">Experience</span><span class="zh">履历</span></a>
+      <a href="#contact"><span class="en">Contact</span><span class="zh">联系</span></a>
+    </nav>
+
+    <div class="rail-tools">
+      <button id="theme-toggle" class="tool" aria-label="Switch colour theme">
+        <span class="mk ic-sun" aria-hidden="true">☀️</span>
+        <span class="mk ic-moon" aria-hidden="true">🌙</span>
+      </button>
+      <button id="lang-toggle" class="tool tool-text">
+        <span class="en">中文<span class="vh"> — switch to Chinese</span></span><span class="zh">EN<span class="vh"> — 切换到英文</span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     MAIN
+     ═══════════════════════════════════════════════════════════════════ -->
+<main id="main">
+
+  <!-- ─────────────── ABOUT ─────────────── -->
+  <section id="about" class="sec">
+    <h2 class="sec-h"><span class="mk" aria-hidden="true">👋</span><span class="en">About</span><span class="zh">简介</span></h2>
+
+    <div class="prose">
+      <p class="lead">
+        <span class="en">I design quantum algorithms for machine-learning problems, and use machine learning to find structure inside quantum systems — most recently, to discover and formally certify quantum error-correcting codes.</span>
+        <span class="zh">我设计面向机器学习问题的量子算法，同时用机器学习去挖掘量子系统内部的结构——最近的工作是发现并形式化验证量子纠错码。</span>
+      </p>
+      <p>
+        <span class="en">I am a Research Associate in the <strong>Department of Physics</strong> at <strong>The University of Texas at Dallas</strong>, working with Prof. <a href="https://scholar.google.com/citations?user=oLtM1IYAAAAJ&amp;hl=en" target="_blank" rel="noopener">Bei Zeng</a>. Before Dallas I was a Postdoctoral Fellow at <strong>The Chinese University of Hong Kong</strong> (2022–2025) with Prof. Renbao Liu, and I received my Ph.D. in Physics from <strong>UESTC</strong> in 2021 under Prof. Xiaoting Wang.</span>
+        <span class="zh">我在<strong>德克萨斯大学达拉斯分校物理系</strong>任助理研究员，合作导师为 <a href="https://scholar.google.com/citations?user=oLtM1IYAAAAJ&amp;hl=en" target="_blank" rel="noopener">曾蓓</a>教授。此前于 2022–2025 年在<strong>香港中文大学</strong>物理系从事博士后研究，合作导师为刘仁保教授；2021 年在<strong>电子科技大学</strong>获物理学博士学位，导师为王晓霆教授。</span>
+      </p>
+      <p>
+        <span class="en">I am always glad to hear from people working on quantum machine learning, quantum error correction, or data-driven approaches to quantum systems — <a href="mailto:Xi.He@utdallas.edu">get in touch</a>.</span>
+        <span class="zh">欢迎在量子机器学习、量子纠错以及量子系统的数据驱动方法等方向交流合作——<a href="mailto:Xi.He@utdallas.edu">欢迎来信</a>。</span>
+      </p>
+    </div>
+
+    <h3 class="sub-h"><span class="mk" aria-hidden="true">📰</span><span class="en">News</span><span class="zh">近期动态</span></h3>
+    <ol class="news" role="list">
+      <li>
+        <time datetime="2026-04">Apr 2026</time>
+        <span class="mk" aria-hidden="true">📄</span>
+        <p><span class="en">New preprint with the Zeng group on the <em>variance geometry</em> of exact Pauli-detecting codes —
+          <a href="https://arxiv.org/abs/2604.21800" target="_blank" rel="noopener">arXiv:2604.21800</a>.</span>
+          <span class="zh">与曾蓓组合作的新预印本，研究精确 Pauli 探测码的<em>方差几何</em>——
+          <a href="https://arxiv.org/abs/2604.21800" target="_blank" rel="noopener">arXiv:2604.21800</a>。</span></p>
+      </li>
+      <li>
+        <time datetime="2025-10">Oct 2025</time>
+        <span class="mk" aria-hidden="true">⚛️</span>
+        <p><span class="en">Preprint on co-designing quantum codes with multi-agent systems, with a machine-certified catalogue of 14,116 codes —
+          <a href="https://arxiv.org/abs/2510.20728" target="_blank" rel="noopener">arXiv:2510.20728</a>
+          (<a href="https://github.com/xh-xihe/multi-agent-qcode-codesign" target="_blank" rel="noopener">code</a>).</span>
+          <span class="zh">用多智能体系统协同设计量子码的预印本上线，并附上含 14,116 个经机器验证的量子码目录——
+          <a href="https://arxiv.org/abs/2510.20728" target="_blank" rel="noopener">arXiv:2510.20728</a>
+          （<a href="https://github.com/xh-xihe/multi-agent-qcode-codesign" target="_blank" rel="noopener">代码</a>）。</span></p>
+      </li>
+      <li>
+        <time datetime="2025-05">May 2025</time>
+        <span class="mk" aria-hidden="true">🎓</span>
+        <p><span class="en">Joined the Department of Physics at UT Dallas as a Research Associate.</span>
+          <span class="zh">加入 UT Dallas 物理系，任助理研究员。</span></p>
+      </li>
+      <li>
+        <time datetime="2024-11">Nov 2024</time>
+        <span class="mk" aria-hidden="true">📄</span>
+        <p><span class="en">Preprint on distribution-alignment transfer fusion frameworks for quantum devices —
+          <a href="https://arxiv.org/abs/2411.01822" target="_blank" rel="noopener">arXiv:2411.01822</a>.</span>
+          <span class="zh">关于量子设备上分布对齐迁移融合框架的预印本上线——
+          <a href="https://arxiv.org/abs/2411.01822" target="_blank" rel="noopener">arXiv:2411.01822</a>。</span></p>
+      </li>
+      <li>
+        <time datetime="2023-08">Aug 2023</time>
+        <span class="mk" aria-hidden="true">🎉</span>
+        <p><span class="en"><em>CiT-Net</em> accepted at <strong>IJCAI 2023</strong>, presented in Macao SAR.</span>
+          <span class="zh">合作论文 <em>CiT-Net</em> 被 <strong>IJCAI 2023</strong> 接收，并在澳门作报告。</span></p>
+      </li>
+    </ol>
+  </section>
+
+
+  <!-- ─────────────── RESEARCH ─────────────── -->
+  <section id="research" class="sec">
+    <h2 class="sec-h"><span class="mk" aria-hidden="true">🔬</span><span class="en">Research</span><span class="zh">研究方向</span></h2>
+    <ol class="topics" role="list">
+      <li>
+        <span class="topic-n">01</span>
+        <h3><span class="en">Quantum Machine Learning</span><span class="zh">量子机器学习</span></h3>
+        <p><span class="en">Machine-learning algorithms built for quantum devices, designed so that the advantage over the classical algorithm is provable or measurable — not assumed.</span>
+          <span class="zh">面向量子设备设计机器学习算法，使其相对经典算法的优势可被证明或被实测，而非仅停留于假设。</span></p>
+      </li>
+      <li>
+        <span class="topic-n">02</span>
+        <h3><span class="en">AI for Quantum Error Correction</span><span class="zh">人工智能驱动的量子纠错</span></h3>
+        <p><span class="en">Using multi-agent systems, symbolic search and formal verification to discover quantum codes — and to certify, rather than merely claim, that they work.</span>
+          <span class="zh">用多智能体系统、符号搜索与形式化验证来发现量子码，并对其正确性给出机器可检验的证明，而不只是声称。</span></p>
+      </li>
+      <li>
+        <span class="topic-n">03</span>
+        <h3><span class="en">Deep-Learning-Enhanced Quantum Information Extraction</span><span class="zh">深度学习增强的量子信息提取</span></h3>
+        <p><span class="en">Neural networks that learn the evolution and observable data of complex quantum systems, recovering signal that conventional estimators leave behind.</span>
+          <span class="zh">用神经网络学习复杂量子系统的演化与可观测数据，提取传统估计方法难以获取的信号。</span></p>
+      </li>
+      <li>
+        <span class="topic-n">04</span>
+        <h3><span class="en">Quantum Transfer &amp; Cross-Domain Learning</span><span class="zh">量子迁移与跨域学习</span></h3>
+        <p><span class="en">Transfer learning, domain adaptation and reinforcement learning recast as quantum problems — aligning distributions, subspaces and correlations on quantum hardware.</span>
+          <span class="zh">将迁移学习、域自适应与强化学习问题重构为量子问题——在量子硬件上对齐分布、子空间与相关性。</span></p>
+      </li>
+    </ol>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       PUBLICATIONS
+
+       ▸ To add a paper, copy one <li class="pub"> block. The parts are:
+           data-type   preprint | journal | conference | patent   (drives the filter)
+           data-year   used only by the BibTeX export; the visible year is
+                       typed by hand into .pub-venue — keep the two in step
+           .pub-fig    the teaser. Either
+                         <svg><use href="#t-xxx"/></svg>   → a drawn diagram from the
+                                                             sprite at the bottom of this file
+                       or
+                         <img src="assets/papers/xxx.png" alt="">  → a real screenshot
+                       Real images win; just swap the element.
+           .me         wraps "Xi He" so it renders bold.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section id="publications" class="sec">
+    <h2 class="sec-h"><span class="mk" aria-hidden="true">📚</span><span class="en">Publications</span><span class="zh">论文</span></h2>
+    <p class="sec-note">
+      <span class="en">Citation counts from <a href="https://openalex.org/" target="_blank" rel="noopener">OpenAlex</a>, refreshed <!--CITE-STAMP-->Aug 2026<!--/CITE-STAMP-->; the full list lives on <a href="https://scholar.google.com/citations?user=RgjSHxwAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>. <span class="me">Bold</span> marks my name.</span>
+      <span class="zh">引用数据来自 <a href="https://openalex.org/" target="_blank" rel="noopener">OpenAlex</a>，更新于 <!--CITE-STAMP-ZH-->2026 年 8 月<!--/CITE-STAMP-ZH-->；完整列表见 <a href="https://scholar.google.com/citations?user=RgjSHxwAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>。<span class="me">加粗</span>为本人。</span>
+    </p>
+
+    <div class="pub-bar">
+      <div class="filters" role="group" aria-label="Filter publications by type">
+        <button type="button" data-filter="all" aria-pressed="true"><span class="en">All</span><span class="zh">全部</span></button>
+        <button type="button" data-filter="preprint" aria-pressed="false"><span class="en">Preprints</span><span class="zh">预印本</span></button>
+        <button type="button" data-filter="journal" aria-pressed="false"><span class="en">Journal</span><span class="zh">期刊</span></button>
+        <button type="button" data-filter="conference" aria-pressed="false"><span class="en">Conference</span><span class="zh">会议</span></button>
+        <button type="button" data-filter="patent" aria-pressed="false"><span class="en">Patents</span><span class="zh">专利</span></button>
+      </div>
+      <label class="pub-search">
+        <span class="mk" aria-hidden="true">🔍</span>
+        <input type="search" id="pub-search" autocomplete="off" spellcheck="false"
+               aria-label="Search publications" placeholder="Search title, venue, co-author…">
+        <kbd>/</kbd>
+      </label>
+    </div>
+
+    <!-- static default so the count is still correct with JavaScript disabled;
+         script.js overwrites it as the filter/search changes -->
+    <p class="pub-count" id="pub-count" aria-live="polite">
+      <span class="en">20 publications</span><span class="zh">20 篇</span>
+    </p>
+
+    <ol class="pubs" id="pub-list" role="list" lang="en">
+
+      <li class="pub" data-type="preprint" data-year="2026">
+        <a class="pub-fig" href="https://arxiv.org/abs/2604.21800" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <img src="assets/papers/t-variance.webp" alt="" loading="lazy" decoding="async" width="520" height="166"></a>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Preprint</span><span class="zh">预印本</span></span><h3 class="pub-title"><a href="https://arxiv.org/abs/2604.21800" target="_blank" rel="noopener">Variance Geometry of Exact Pauli-Detecting Codes: Continuous Landscapes Beyond Stabilizers</a></h3>
+          <p class="pub-authors">Arunaday Gupta, Baisong Sun, <span class="me">Xi He</span>, Bei Zeng</p>
+          <p class="pub-venue"><span class="eprint"><a href="https://arxiv.org/abs/2604.21800" target="_blank" rel="noopener">arXiv:2604.21800</a></span> · 2026</p>
+          <p class="pub-tldr">Exact error-detecting codes turn out to form connected continuous families governed by a single scalar derived from the Knill–Laflamme conditions, with stabilizer codes occupying only measure-zero points of a much larger continuum.</p>
+          <p class="pub-links">
+            <a href="https://arxiv.org/abs/2604.21800" target="_blank" rel="noopener">arXiv</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="preprint" data-year="2025">
+        <a class="pub-fig" href="https://arxiv.org/abs/2510.20728" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <img src="assets/papers/t-qcode-agents.webp" alt="" loading="lazy" decoding="async" width="520" height="221"></a>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Preprint</span><span class="zh">预印本</span></span><h3 class="pub-title"><a href="https://arxiv.org/abs/2510.20728" target="_blank" rel="noopener">Co-Designing Quantum Codes with Transversal Diagonal Gates via Multi-Agent Systems</a></h3>
+          <p class="pub-authors"><span class="me">Xi He</span>, Sirui Lu, Bei Zeng</p>
+          <p class="pub-venue"><span class="eprint"><a href="https://arxiv.org/abs/2510.20728" target="_blank" rel="noopener">arXiv:2510.20728</a></span> · 2025</p>
+          <p class="pub-tldr">A multi-agent platform pairing symbolic synthesis and combinatorial search with Lean 4 proof checking, yielding a machine-certified catalogue of 14,116 quantum codes admitting transversal diagonal gates.</p>
+          <p class="pub-links">
+            <a href="https://arxiv.org/abs/2510.20728" target="_blank" rel="noopener">arXiv</a>
+            <a href="https://github.com/xh-xihe/multi-agent-qcode-codesign" target="_blank" rel="noopener">Code</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="preprint" data-year="2024">
+        <a class="pub-fig" href="https://arxiv.org/abs/2411.01822" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <img src="assets/papers/t-fusion.webp" alt="" loading="lazy" decoding="async" width="520" height="161"></a>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Preprint</span><span class="zh">预印本</span></span><h3 class="pub-title"><a href="https://arxiv.org/abs/2411.01822" target="_blank" rel="noopener">Distribution Alignment Based Transfer Fusion Frameworks on Quantum Devices for Seeking Quantum Advantages</a></h3>
+          <p class="pub-authors"><span class="me">Xi He</span>, Feiyu Du, Xiaohan Yu, Yang Zhao, Tao Lei</p>
+          <p class="pub-venue"><span class="eprint"><a href="https://arxiv.org/abs/2411.01822" target="_blank" rel="noopener">arXiv:2411.01822</a></span> · 2024</p>
+          <p class="pub-tldr">Attacks quantum machine learning's data-scarcity problem by fusing two related domains through a quantum information infusion channel — a QBLAS route with quadratic speedup, and a variational route that matches state-of-the-art quantum domain adaptation.</p>
+          <p class="pub-links">
+            <a href="https://arxiv.org/abs/2411.01822" target="_blank" rel="noopener">arXiv</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="preprint" data-year="2020">
+        <a class="pub-fig" href="https://arxiv.org/abs/2004.01216" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <img src="assets/papers/t-metrology.webp" alt="" loading="lazy" decoding="async" width="486" height="157"></a>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Preprint</span><span class="zh">预印本</span></span><h3 class="pub-title"><a href="https://arxiv.org/abs/2004.01216" target="_blank" rel="noopener">Exponential Enhancement of Quantum Metrology Using Continuous Variables</a></h3>
+          <p class="pub-authors">Li Sun, <span class="me">Xi He</span>, Chenglong You, Chufan Lyu, Bo Li, Seth Lloyd, Xiaoting Wang</p>
+          <p class="pub-venue"><span class="eprint"><a href="https://arxiv.org/abs/2004.01216" target="_blank" rel="noopener">arXiv:2004.01216</a></span> · 2020 · <span class="dim">presented at AQISC 2020</span></p>
+          <p class="pub-tldr">Continuous-variable resources of only linear complexity are shown to deliver an exponential enhancement in metrological precision.</p>
+          <p class="pub-links">
+            <a href="https://arxiv.org/abs/2004.01216" target="_blank" rel="noopener">arXiv</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="preprint" data-year="2019">
+        <a class="pub-fig" href="https://arxiv.org/abs/1912.09113" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <img src="assets/papers/t-qtca.webp" alt="" loading="lazy" decoding="async" width="520" height="329"></a>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Preprint</span><span class="zh">预印本</span></span><h3 class="pub-title"><a href="https://arxiv.org/abs/1912.09113" target="_blank" rel="noopener">Quantum Transfer Component Analysis for Domain Adaptation</a></h3>
+          <p class="pub-authors"><span class="me">Xi He</span>, Chufan Lyu, Min-Hsiu Hsieh, Xiaoting Wang</p>
+          <p class="pub-venue"><span class="eprint"><a href="https://arxiv.org/abs/1912.09113" target="_blank" rel="noopener">arXiv:1912.09113</a></span> · 2019</p>
+          <p class="pub-tldr">Quantum implementations of transfer component analysis learn a shared latent feature space across two domains, the linear-algebra version running in time polylogarithmic in the sample count.</p>
+          <p class="pub-links">
+            <a href="https://arxiv.org/abs/1912.09113" target="_blank" rel="noopener">arXiv</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="journal" data-year="2024">
+        <span class="pub-fig" aria-hidden="true"><svg viewBox="0 0 220 150"><use href="#t-carbon"/></svg></span>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Journal</span><span class="zh">期刊</span></span><h3 class="pub-title"><a href="https://doi.org/10.1016/j.scitotenv.2023.169141" target="_blank" rel="noopener">A State-of-the-Art Review on Biomass-Derived Carbon Materials for Supercapacitor Applications: From Precursor Selection to Design Optimization</a></h3>
+          <p class="pub-authors">Hengyuan Hu, Minglei Yan, Jietao Jiang, Ankui Huang, Sicheng Cai, Linxuan Lan, Kewei Ye, Danlei Chen, Kewen Tang, Qin Zuo, Yun Zeng, Wei Tang, Junheng Fu, Chenglu Jiang, Yong Wang, Zhenhua Yan, <span class="me">Xi He</span>, Liang Qiao, Yang Zhao</p>
+          <p class="pub-venue"><em>Science of The Total Environment</em> <strong>912</strong>, 169141 · 2024<span class="cites" title="Citations recorded by OpenAlex">89 citations</span></p>
+          <p class="pub-tldr">A review tracing biomass-derived carbon materials for supercapacitors from precursor selection through activation chemistry to device-level design optimization.</p>
+          <p class="pub-links">
+            <a href="https://doi.org/10.1016/j.scitotenv.2023.169141" target="_blank" rel="noopener">DOI</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="journal" data-year="2023">
+        <a class="pub-fig" href="https://doi.org/10.1007/s11128-023-03846-0" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <img src="assets/papers/t-qcda.webp" alt="" loading="lazy" decoding="async" width="520" height="457"></a>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Journal</span><span class="zh">期刊</span></span><h3 class="pub-title"><a href="https://doi.org/10.1007/s11128-023-03846-0" target="_blank" rel="noopener">Quantum Classifiers for Domain Adaptation</a></h3>
+          <p class="pub-authors"><span class="me">Xi He</span>, Feiyu Du, Mingyuan Xue, Xiaogang Du, Tao Lei, Asoke K. Nandi</p>
+          <p class="pub-venue"><em>Quantum Information Processing</em> <strong>22</strong>(2), 105 · 2023<span class="eprint"><a href="https://arxiv.org/abs/2110.02808" target="_blank" rel="noopener">arXiv:2110.02808</a></span><span class="cites" title="Citations recorded by OpenAlex">3 citations</span></p>
+          <p class="pub-tldr">Two quantum domain-adaptation classifiers carry labels from a source domain to an unlabelled target — one needing resources only logarithmic in the data's size and dimension, one built for near-term hardware.</p>
+          <p class="pub-links">
+            <a href="https://doi.org/10.1007/s11128-023-03846-0" target="_blank" rel="noopener">DOI</a>
+            <a href="https://arxiv.org/abs/2110.02808" target="_blank" rel="noopener">arXiv</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="journal" data-year="2020">
+        <a class="pub-fig" href="https://doi.org/10.1103/PhysRevA.102.062403" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <img src="assets/papers/t-qsa.webp" alt="" loading="lazy" decoding="async" width="520" height="318"></a>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Journal</span><span class="zh">期刊</span></span><h3 class="pub-title"><a href="https://doi.org/10.1103/PhysRevA.102.062403" target="_blank" rel="noopener">Quantum Subspace Alignment for Domain Adaptation</a></h3>
+          <p class="pub-authors"><span class="me">Xi He</span></p>
+          <p class="pub-venue"><em>Physical Review A</em> <strong>102</strong>, 062403 · 2020 <span class="tag">Sole author</span><span class="eprint"><a href="https://arxiv.org/abs/2001.02472" target="_blank" rel="noopener">arXiv:2001.02472</a></span><span class="cites" title="Citations recorded by OpenAlex">10 citations</span></p>
+          <p class="pub-tldr">Two quantum subspace-alignment schemes let a classifier trained on labelled data transfer to a different unlabelled dataset — one with quadratic speedup in sample number and dimension, one variational and competitive with the classical algorithm on near-term hardware.</p>
+          <p class="pub-links">
+            <a href="https://doi.org/10.1103/PhysRevA.102.062403" target="_blank" rel="noopener">DOI</a>
+            <a href="https://arxiv.org/abs/2001.02472" target="_blank" rel="noopener">arXiv</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="journal" data-year="2020">
+        <a class="pub-fig" href="https://doi.org/10.1103/PhysRevA.102.032410" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <img src="assets/papers/t-qca.webp" alt="" loading="lazy" decoding="async" width="520" height="496"></a>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Journal</span><span class="zh">期刊</span></span><h3 class="pub-title"><a href="https://doi.org/10.1103/PhysRevA.102.032410" target="_blank" rel="noopener">Quantum Correlation Alignment for Unsupervised Domain Adaptation</a></h3>
+          <p class="pub-authors"><span class="me">Xi He</span></p>
+          <p class="pub-venue"><em>Physical Review A</em> <strong>102</strong>, 032410 · 2020 <span class="tag">Sole author</span><span class="eprint"><a href="https://arxiv.org/abs/2005.03355" target="_blank" rel="noopener">arXiv:2005.03355</a></span><span class="cites" title="Citations recorded by OpenAlex">15 citations</span></p>
+          <p class="pub-tldr">Implements CORAL — decorrelating and realigning a labelled source dataset onto an unlabelled target — on quantum devices two ways: a QBLAS route with exponential speedup, and a variational hybrid matching classical CORAL on synthetic, Iris and handwritten-digit data.</p>
+          <p class="pub-links">
+            <a href="https://doi.org/10.1103/PhysRevA.102.032410" target="_blank" rel="noopener">DOI</a>
+            <a href="https://arxiv.org/abs/2005.03355" target="_blank" rel="noopener">arXiv</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="journal" data-year="2020">
+        <a class="pub-fig" href="https://doi.org/10.1007/s11128-020-02818-y" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <img src="assets/papers/t-qlle.webp" alt="" loading="lazy" decoding="async" width="520" height="567"></a>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Journal</span><span class="zh">期刊</span></span><h3 class="pub-title"><a href="https://doi.org/10.1007/s11128-020-02818-y" target="_blank" rel="noopener">Quantum Locally Linear Embedding for Nonlinear Dimensionality Reduction</a></h3>
+          <p class="pub-authors"><span class="me">Xi He</span>, Li Sun, Chufan Lyu, Xiaoting Wang</p>
+          <p class="pub-venue"><em>Quantum Information Processing</em> <strong>19</strong>(9), 309 · 2020<span class="eprint"><a href="https://arxiv.org/abs/1910.07854" target="_blank" rel="noopener">arXiv:1910.07854</a></span><span class="cites" title="Citations recorded by OpenAlex">23 citations</span></p>
+          <p class="pub-tldr">Two quantum implementations of locally linear embedding compress nonlinear high-dimensional data while preserving its manifold structure, the linear-algebra version giving quadratic speedup over classical LLE.</p>
+          <p class="pub-links">
+            <a href="https://doi.org/10.1007/s11128-020-02818-y" target="_blank" rel="noopener">DOI</a>
+            <a href="https://arxiv.org/abs/1910.07854" target="_blank" rel="noopener">arXiv</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="conference" data-year="2023">
+        <a class="pub-fig" href="https://www.ijcai.org/proceedings/2023/113" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <img src="assets/papers/t-citnet.webp" alt="" loading="lazy" decoding="async" width="520" height="122"></a>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Conference</span><span class="zh">会议</span></span><h3 class="pub-title"><a href="https://www.ijcai.org/proceedings/2023/113" target="_blank" rel="noopener">CiT-Net: Convolutional Neural Networks Hand in Hand with Vision Transformers for Medical Image Segmentation</a></h3>
+          <p class="pub-authors">Tao Lei, Rui Sun, Xuan Wang, Yingbo Wang, <span class="me">Xi He</span>, Asoke K. Nandi</p>
+          <p class="pub-venue"><em>IJCAI-23</em>, pp. 1017–1025 · 2023 <span class="tag">Macao SAR</span><span class="eprint"><a href="https://arxiv.org/abs/2306.03373" target="_blank" rel="noopener">arXiv:2306.03373</a></span><span class="cites" title="Citations recorded by OpenAlex">33 citations</span></p>
+          <p class="pub-tldr">A dual-branch architecture in which convolutions and vision transformers interact throughout the network rather than in sequence, improving medical image segmentation.</p>
+          <p class="pub-links">
+            <a href="https://doi.org/10.24963/ijcai.2023/113" target="_blank" rel="noopener">DOI</a>
+            <a href="https://www.ijcai.org/proceedings/2023/0113.pdf" target="_blank" rel="noopener">PDF</a>
+            <a href="https://arxiv.org/abs/2306.03373" target="_blank" rel="noopener">arXiv</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="conference" data-year="2023">
+        <a class="pub-fig" href="https://doi.org/10.1109/PRAI59366.2023.10332071" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <svg viewBox="0 0 220 150"><use href="#t-qjda"/></svg></a>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Conference</span><span class="zh">会议</span></span><h3 class="pub-title"><a href="https://doi.org/10.1109/PRAI59366.2023.10332071" target="_blank" rel="noopener">Quantum Joint Distribution Adaptation on the Universal Quantum Computer</a></h3>
+          <p class="pub-authors">Feiyu Du, <span class="me">Xi He</span></p>
+          <p class="pub-venue"><em>IEEE PRAI 2023</em>, pp. 806–811 · 2023</p>
+          <p class="pub-tldr">Adapts the joint distribution of features and labels across domains on a universal quantum computer, rather than the marginals alone.</p>
+          <p class="pub-links">
+            <a href="https://doi.org/10.1109/PRAI59366.2023.10332071" target="_blank" rel="noopener">DOI</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="conference" data-year="2023">
+        <a class="pub-fig" href="https://doi.org/10.1145/3590003.3590054" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <svg viewBox="0 0 220 150"><use href="#t-qksa"/></svg></a>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Conference</span><span class="zh">会议</span></span><h3 class="pub-title"><a href="https://doi.org/10.1145/3590003.3590054" target="_blank" rel="noopener">Quantum Kernel Subspace Alignment for Unsupervised Domain Adaptation</a></h3>
+          <p class="pub-authors"><span class="me">Xi He</span>, Feiyu Du</p>
+          <p class="pub-venue"><em>CACML 2023</em>, pp. 294–297 · 2023</p>
+          <p class="pub-tldr">Aligns source and target subspaces inside a quantum kernel feature space, extending subspace alignment to the nonlinear regime without labels in the target domain.</p>
+          <p class="pub-links">
+            <a href="https://doi.org/10.1145/3590003.3590054" target="_blank" rel="noopener">DOI</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="conference" data-year="2022">
+        <a class="pub-fig" href="https://doi.org/10.1109/ICASSP43922.2022.9746587" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <svg viewBox="0 0 220 150"><use href="#t-genn"/></svg></a>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Conference</span><span class="zh">会议</span></span><h3 class="pub-title"><a href="https://doi.org/10.1109/ICASSP43922.2022.9746587" target="_blank" rel="noopener">Global Evolution Neural Network for Segmentation of Remote Sensing Images</a></h3>
+          <p class="pub-authors">Xinzhe Geng, Tao Lei, Qi Chen, Jian Su, <span class="me">Xi He</span>, Qi Wang, Asoke K. Nandi</p>
+          <p class="pub-venue"><em>IEEE ICASSP 2022</em>, pp. 5093–5097 · 2022<span class="cites" title="Citations recorded by OpenAlex">1 citation</span></p>
+          <p class="pub-tldr">Two global evolution strategies for remote-sensing segmentation: knowledge enhancement, which reactivates dead convolution kernels by converging different models, and a dict-attention module that learns relationships across the whole training set rather than within a single sample.</p>
+          <p class="pub-links">
+            <a href="https://doi.org/10.1109/ICASSP43922.2022.9746587" target="_blank" rel="noopener">DOI</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="conference" data-year="2019">
+        <span class="pub-fig" aria-hidden="true"><svg viewBox="0 0 220 150"><use href="#t-manifold"/></svg></span>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Conference</span><span class="zh">会议</span></span><h3 class="pub-title">Quantum Manifold Learning Algorithms for Dimensionality Reduction</h3>
+          <p class="pub-authors"><span class="me">Xi He</span>, Li Sun, Xiaokai Hou, Xiaoting Wang</p>
+          <p class="pub-venue"><em>APS March Meeting 2019</em>, abstract E27.009 · Boston, USA</p>
+          <p class="pub-tldr">Quantum algorithms for manifold learning that reduce dimensionality while preserving local geometric structure.</p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="conference" data-year="2019">
+        <span class="pub-fig" aria-hidden="true"><svg viewBox="0 0 220 150"><use href="#t-qlr"/></svg></span>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Conference</span><span class="zh">会议</span></span><h3 class="pub-title">Quantum Linear Regression with Regularization</h3>
+          <p class="pub-authors">Xiaokai Hou, <span class="me">Xi He</span>, Chufan Lyu, Dingding Wen, Xiaoting Wang</p>
+          <p class="pub-venue"><em>APS March Meeting 2019</em>, abstract G70.366 · Boston, USA</p>
+          <p class="pub-tldr">A quantum linear-regression routine carrying an explicit regularization term to control overfitting.</p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="conference" data-year="2017">
+        <span class="pub-fig" aria-hidden="true"><svg viewBox="0 0 220 150"><use href="#t-tjunction"/></svg></span>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Conference</span><span class="zh">会议</span></span><h3 class="pub-title">A Novel T-Junction Waveguide Power Divider with Anti-Phases and Broad Bandwidth</h3>
+          <p class="pub-authors">Peng Zhao, Qingyuan Wang, Fan Zhang, <span class="me">Xi He</span></p>
+          <p class="pub-venue"><em>IEEE AP-S/URSI 2017</em> · 2017</p>
+          <p class="pub-tldr">A T-junction waveguide divider producing anti-phase outputs while holding a broad operating bandwidth.</p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="patent" data-year="2018">
+        <span class="pub-fig" aria-hidden="true"><img src="assets/papers/t-pat-ridge.webp" alt="" loading="lazy" decoding="async" width="520" height="367"></span>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Patent</span><span class="zh">专利</span></span><h3 class="pub-title">Wideband Ridge Transmission Line Coupling Structure</h3>
+          <p class="pub-authors">Qingyuan Wang, <span class="me">Xi He</span>, Peng Zhao</p>
+          <p class="pub-venue"><em>Chinese utility patent</em> · CN206947488U</p>
+          <p class="pub-tldr">A ridge-waveguide coupling structure that broadens the usable bandwidth of the transmission line.</p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="patent" data-year="2017">
+        <span class="pub-fig" aria-hidden="true"><img src="assets/papers/t-pat-filter.webp" alt="" loading="lazy" decoding="async" width="520" height="280"></span>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Patent</span><span class="zh">专利</span></span><h3 class="pub-title">Back-Hole Coupled Ridge Transmission Line Filter Structure</h3>
+          <p class="pub-authors">Qingyuan Wang, Tianyu Zhang, <span class="me">Xi He</span></p>
+          <p class="pub-venue"><em>Chinese utility patent</em> · CN206742465U</p>
+          <p class="pub-tldr">A cavity filter whose resonators couple through back-side apertures, easing fabrication of the ridge line.</p>
+        </div>
+      </li>
+
+      <li class="pub" data-type="patent" data-year="2017">
+        <span class="pub-fig" aria-hidden="true"><img src="assets/papers/t-pat-omt.webp" alt="" loading="lazy" decoding="async" width="520" height="635"></span>
+        <div class="pub-body">
+          <span class="kind"><span class="en">Patent</span><span class="zh">专利</span></span><h3 class="pub-title">Orthogonal Mode Adapter with Mirror Symmetrical Structure</h3>
+          <p class="pub-authors">Qingyuan Wang, <span class="me">Xi He</span>, Peng Zhao</p>
+          <p class="pub-venue"><em>Chinese utility patent</em> · CN206657853U</p>
+          <p class="pub-tldr">A mirror-symmetric orthomode transducer separating two orthogonal polarizations with improved port isolation.</p>
+        </div>
+      </li>
+
+    </ol>
+
+    <p id="pub-empty" class="sec-note" hidden>
+      <span class="en">Nothing matches that search.</span><span class="zh">没有匹配的结果。</span>
+    </p>
+  </section>
+
+
+  <!-- ─────────────── TALKS ─────────────── -->
+  <section id="talks" class="sec">
+    <h2 class="sec-h"><span class="mk" aria-hidden="true">🎤</span><span class="en">Conference Talks</span><span class="zh">会议报告</span></h2>
+    <ol class="rows" role="list" lang="en">
+      <li>
+        <span class="row-when">Aug 2023</span>
+        <span class="row-what">Quantum Joint Distribution Adaptation on the Universal Quantum Computer</span>
+        <span class="row-where">IEEE PRAI 2023 · Online</span>
+      </li>
+      <li>
+        <span class="row-when">Aug 2023</span>
+        <span class="row-what">CiT-Net: Convolutional Neural Networks Hand in Hand with Vision Transformers for Medical Image Segmentation</span>
+        <span class="row-where">IJCAI-23 · Macao SAR, China</span>
+      </li>
+      <li>
+        <span class="row-when">Mar 2023</span>
+        <span class="row-what">Quantum Kernel Subspace Alignment for Unsupervised Domain Adaptation</span>
+        <span class="row-where">CACML 2023 · Online</span>
+      </li>
+      <li>
+        <span class="row-when">Mar 2019</span>
+        <span class="row-what">Quantum Manifold Learning Algorithms for Dimensionality Reduction</span>
+        <span class="row-where">APS March Meeting · Boston, USA</span>
+      </li>
+    </ol>
+  </section>
+
+
+  <!-- ─────────────── EXPERIENCE / CV ─────────────── -->
+  <section id="cv" class="sec">
+    <h2 class="sec-h"><span class="mk" aria-hidden="true">🧭</span><span class="en">Experience</span><span class="zh">履历</span></h2>
+
+    <h3 class="sub-h"><span class="mk" aria-hidden="true">🏢</span><span class="en">Positions</span><span class="zh">工作经历</span></h3>
+    <ol class="timeline" role="list">
+      <li class="now">
+        <span class="tl-when">2025 — <span class="en">present</span><span class="zh">至今</span></span>
+        <div class="tl-body">
+          <h4><span class="mk" aria-hidden="true">💼</span><span class="en">Research Associate</span><span class="zh">助理研究员</span></h4>
+          <p class="tl-org"><img class="org-logo" src="assets/logos/utd.png" alt="UT Dallas" width="18" height="18" loading="lazy" decoding="async"><span lang="en">The University of Texas at Dallas</span> · <span class="en">Department of Physics</span><span class="zh">物理系</span></p>
+          <p class="tl-note"><span class="en">with Prof. Bei Zeng</span><span class="zh">合作导师：曾蓓 教授</span></p>
+        </div>
+      </li>
+      <li>
+        <span class="tl-when">2022 — 2025</span>
+        <div class="tl-body">
+          <h4><span class="mk" aria-hidden="true">💼</span><span class="en">Postdoctoral Fellow</span><span class="zh">博士后研究员</span></h4>
+          <p class="tl-org"><img class="org-logo" src="assets/logos/cuhk.png" alt="CUHK" width="18" height="18" loading="lazy" decoding="async"><span lang="en">The Chinese University of Hong Kong</span> · <span class="en">Department of Physics</span><span class="zh">物理系</span></p>
+          <p class="tl-note"><span class="en">with Prof. Renbao Liu</span><span class="zh">合作导师：刘仁保 教授</span></p>
+        </div>
+      </li>
+      <li>
+        <span class="tl-when">2020</span>
+        <div class="tl-body">
+          <h4><span class="mk" aria-hidden="true">💼</span><span class="en">Research Intern</span><span class="zh">研究实习生</span></h4>
+          <p class="tl-org"><img class="org-logo" src="assets/logos/tencent.png" alt="Tencent" width="18" height="18" loading="lazy" decoding="async"><span lang="en">Tencent Holdings</span> · <span class="en">Tencent Quantum Laboratory</span><span class="zh">腾讯量子实验室</span></p>
+          <p class="tl-note"><span class="en">with Jonathan Allcock · Jun–Aug 2020</span><span class="zh">导师：Jonathan Allcock · 2020 年 6–8 月</span></p>
+        </div>
+      </li>
+    </ol>
+
+    <h3 class="sub-h"><span class="mk" aria-hidden="true">🏫</span><span class="en">Education</span><span class="zh">教育经历</span></h3>
+    <ol class="timeline" role="list">
+      <li>
+        <span class="tl-when">2017 — 2021</span>
+        <div class="tl-body">
+          <h4><span class="mk" aria-hidden="true">🎓</span><span class="en">Ph.D. in Physics</span><span class="zh">物理学 博士</span></h4>
+          <p class="tl-org"><img class="org-logo" src="assets/logos/uestc.png" alt="UESTC" width="18" height="18" loading="lazy" decoding="async"><span lang="en">University of Electronic Science and Technology of China</span><br>
+            <span class="en">Institute of Fundamental and Frontier Sciences</span><span class="zh">基础与前沿研究院</span></p>
+          <p class="tl-note"><span class="en">Advisor: Prof. Xiaoting Wang · GPA 3.93 / 4.0</span><span class="zh">导师：王晓霆 教授 · GPA 3.93 / 4.0</span></p>
+        </div>
+      </li>
+      <li>
+        <span class="tl-when">2015 — 2017</span>
+        <div class="tl-body">
+          <h4><span class="mk" aria-hidden="true">🎓</span><span class="en">M.Sc. in Radio Physics</span><span class="zh">无线电物理 硕士</span></h4>
+          <p class="tl-org"><img class="org-logo" src="assets/logos/uestc.png" alt="UESTC" width="18" height="18" loading="lazy" decoding="async"><span lang="en">University of Electronic Science and Technology of China</span><br>
+            <span class="en">School of Physics and Electronics</span><span class="zh">物理电子学院</span></p>
+          <p class="tl-note"><span class="en">Advisor: Prof. Qingyuan Wang · GPA 3.83 / 4.0</span><span class="zh">导师：王青元 教授 · GPA 3.83 / 4.0</span></p>
+        </div>
+      </li>
+      <li>
+        <span class="tl-when">2010 — 2014</span>
+        <div class="tl-body">
+          <h4><span class="mk" aria-hidden="true">🎓</span><span class="en">B.Eng. in Electronic Engineering</span><span class="zh">电子工程 学士</span></h4>
+          <p class="tl-org"><img class="org-logo" src="assets/logos/uestc.png" alt="UESTC" width="18" height="18" loading="lazy" decoding="async"><span lang="en">University of Electronic Science and Technology of China</span><br>
+            <span class="en">School of Physics and Electronics</span><span class="zh">物理电子学院</span></p>
+        </div>
+      </li>
+    </ol>
+
+    <h3 class="sub-h"><span class="mk" aria-hidden="true">💰</span><span class="en">Grants</span><span class="zh">科研项目</span></h3>
+    <ol class="rows rows-grant" role="list">
+      <li>
+        <span class="row-when">2023 — 2026</span>
+        <span class="row-what"><span class="en">Segmentation methods for abdominal CT images under limited resources</span><span class="zh">资源受限条件下腹部 CT 影像分割方法研究</span></span>
+        <span class="row-where"><span class="en">NSFC General Program · No. 62271296 · Participant</span><span class="zh">国家自然科学基金面上项目 · 62271296 · 参与</span></span>
+      </li>
+      <li>
+        <span class="row-when">2022 — 2024</span>
+        <span class="row-what"><span class="en">Quantization, application and interpretability of deep transfer learning algorithms</span><span class="zh">深度迁移学习算法的量化、应用与可解释性研究</span></span>
+        <span class="row-where"><span class="en">Shaanxi Natural Science Basic Research · No. 2022JQ-018 · <strong>Principal Investigator</strong></span><span class="zh">陕西省自然科学基础研究计划 · 2022JQ-018 · <strong>主持</strong></span></span>
+      </li>
+      <li>
+        <span class="row-when">2018 — 2023</span>
+        <span class="row-what"><span class="en">Quantum machine learning and quantum simulation</span><span class="zh">量子机器学习与量子模拟</span></span>
+        <span class="row-where"><span class="en">National Key R&amp;D Program of China · No. 2018YFA0306703 · Participant</span><span class="zh">国家重点研发计划 · 2018YFA0306703 · 参与</span></span>
+      </li>
+    </ol>
+
+    <h3 class="sub-h"><span class="mk" aria-hidden="true">🏆</span><span class="en">Honors</span><span class="zh">荣誉奖励</span></h3>
+    <ul class="honors" role="list">
+      <li><span class="mk" aria-hidden="true">🎖️</span><span class="yr">2020</span><span class="en">Academic Scholarship for Doctoral Students</span><span class="zh">博士研究生学业奖学金</span></li>
+      <li><span class="mk" aria-hidden="true">🎖️</span><span class="yr">2019</span><span class="en">Academic Scholarship for Doctoral Students</span><span class="zh">博士研究生学业奖学金</span></li>
+      <li><span class="mk" aria-hidden="true">🎖️</span><span class="yr">2018</span><span class="en">Academic Scholarship for Doctoral Students</span><span class="zh">博士研究生学业奖学金</span></li>
+      <li><span class="mk" aria-hidden="true">🎖️</span><span class="yr">2017</span><span class="en">Freshman Scholarship for Doctoral Students</span><span class="zh">博士新生奖学金</span></li>
+      <li><span class="mk" aria-hidden="true">🏅</span><span class="yr">2016</span><span class="en">Excellent Graduate Student</span><span class="zh">优秀研究生</span></li>
+      <li><span class="mk" aria-hidden="true">🎖️</span><span class="yr">2016</span><span class="en">Academic Scholarship for Master's Students</span><span class="zh">硕士研究生学业奖学金</span></li>
+      <li><span class="mk" aria-hidden="true">🎖️</span><span class="yr">2015</span><span class="en">Freshman Scholarship for Master's Students</span><span class="zh">硕士新生奖学金</span></li>
+      <li><span class="mk" aria-hidden="true">🌟</span><span class="yr">2011</span><span class="en">People's Scholarship</span><span class="zh">人民奖学金</span></li>
+    </ul>
+
+    <h3 class="sub-h"><span class="mk" aria-hidden="true">🤝</span><span class="en">Service</span><span class="zh">学术服务</span></h3>
+    <p class="service">
+      <span class="service-label"><span class="en">Referee for</span><span class="zh">期刊审稿人</span></span>
+      <span lang="en">Quantum Science and Technology · Machine Learning: Science and Technology ·
+      Quantum Information Processing · Journal of Neural Engineering ·
+      Physica Scripta · New Journal of Physics</span>
+    </p>
+  </section>
+
+
+  <!-- ─────────────── CONTACT ─────────────── -->
+  <section id="contact" class="sec">
+    <h2 class="sec-h"><span class="mk" aria-hidden="true">📬</span><span class="en">Contact</span><span class="zh">联系方式</span></h2>
+    <dl class="contact">
+      <dt><span class="en">Email</span><span class="zh">邮箱</span></dt>
+      <dd>
+        <a href="mailto:Xi.He@utdallas.edu" data-copy="Xi.He@utdallas.edu">Xi.He@utdallas.edu</a><br>
+        <a href="mailto:richard.xi.he@gmail.com" data-copy="richard.xi.he@gmail.com">richard.xi.he@gmail.com</a>
+      </dd>
+      <dt><span class="en">Office</span><span class="zh">办公地址</span></dt>
+      <dd lang="en">Department of Physics<br>The University of Texas at Dallas<br>800 W Campbell Rd, Richardson, TX 75080</dd>
+      <dt><span class="en">Profiles</span><span class="zh">学术主页</span></dt>
+      <dd>
+        <a href="https://scholar.google.com/citations?user=RgjSHxwAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a> ·
+        <a href="https://github.com/xh-xihe" target="_blank" rel="noopener">GitHub</a> ·
+        <a href="cv.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+      </dd>
+    </dl>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p><span class="en">© <span class="yr-now">2026</span> Xi He · Hand-written static page — no trackers, no third-party requests.</span>
+     <span class="zh">© <span class="yr-now">2026</span> Xi He · 手写静态页面 — 无追踪脚本，无第三方请求。</span></p>
+</footer>
+</div><!-- /.shell -->
+
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     PAPER TEASER SPRITE
+     Each <symbol> is a schematic figure drawn for one paper. They use
+     currentColor + var(--accent), so they follow the light/dark theme.
+     Replace any of them with a real screenshot by swapping the
+     <svg><use …/></svg> inside .pub-fig for <img src="assets/papers/x.png" alt="">.
+     ═══════════════════════════════════════════════════════════════════ -->
+<svg width="0" height="0" class="sprite" aria-hidden="true"><defs>
+<marker id="ah" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="4.4" markerHeight="4.4" orient="auto-start-reverse">
+  <path d="M0.5 0.8 L8 4 L0.5 7.2 Z" fill="currentColor"/>
+</marker>
+<marker id="ah-t" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="4.4" markerHeight="4.4" orient="auto-start-reverse">
+  <path d="M0.5 0.8 L8 4 L0.5 7.2 Z" fill="var(--accent)"/>
+</marker>
+<marker id="ah-sm" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="3.4" markerHeight="3.4" orient="auto-start-reverse">
+  <path d="M0.5 0.8 L8 4 L0.5 7.2 Z" fill="currentColor"/>
+</marker>
+<marker id="ah-sm-t" viewBox="0 0 8 8" refX="7.2" refY="4" markerWidth="3.4" markerHeight="3.4" orient="auto-start-reverse">
+  <path d="M0.5 0.8 L8 4 L0.5 7.2 Z" fill="var(--accent)"/>
+</marker>
+
+<symbol id="t-carbon" viewBox="0 0 220 150">
+  <path d="M14 76h190" stroke="currentColor" stroke-width=".9" opacity=".3" fill="none" marker-end="url(#ah-sm)"/>
+  <g fill="none" stroke="currentColor" stroke-width="1.1" opacity=".65" transform="translate(14 54)">
+    <path d="M8 0l7 4v8l-7 4-7-4V4z"/><path d="M22 0l7 4v8l-7 4-7-4V4z"/>
+    <path d="M15 12l7 4v8l-7 4-7-4v-8z"/><path d="M29 12l7 4v8l-7 4-7-4v-8z"/>
+  </g>
+  <text x="32" y="112" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".55">biomass</text>
+  <g transform="translate(66 54)">
+    <circle cx="7" cy="7" r="4" fill="currentColor" opacity=".6"/>
+    <rect x="19" y="4" width="16" height="6" rx="3" fill="none" stroke="currentColor" stroke-width="1.1" opacity=".65"/>
+    <path d="M2 30l12-6 12 3-12 6z" fill="none" stroke="currentColor" stroke-width="1.1" opacity=".65"/>
+    <g fill="none" stroke="currentColor" stroke-width="1.1" opacity=".65">
+      <rect x="22" y="22" width="15" height="15"/><circle cx="26" cy="26" r="1.7"/><circle cx="33" cy="26" r="1.7"/>
+      <circle cx="26" cy="33" r="1.7"/><circle cx="33" cy="33" r="1.7"/>
+    </g>
+  </g>
+  <text x="86" y="112" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".55">0D&#8211;3D</text>
+  <g transform="translate(120 56)">
+    <g fill="none" stroke="currentColor" stroke-width="1.1" opacity=".5">
+      <path d="M8 0l7 4v8l-7 4-7-4V4z"/><path d="M22 0l7 4v8l-7 4-7-4V4z"/>
+      <path d="M15 12l7 4v8l-7 4-7-4v-8z"/>
+    </g>
+    <circle cx="8" cy="8" r="3.2" fill="var(--accent)"/>
+    <circle cx="22" cy="20" r="3.2" fill="var(--accent)"/>
+  </g>
+  <text x="134" y="112" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="var(--accent)" opacity=".9">N / O doping</text>
+  <g transform="translate(164 48)">
+    <path d="M2 46h46M2 46V6" stroke="currentColor" stroke-width=".9" opacity=".35" fill="none"/>
+    <path d="M9 34c0-9 4-12 10-12h20c5 0 8 3 8 8s-4 12-10 12H17c-5 0-8-3-8-8z"
+          fill="var(--accent)" fill-opacity=".1" stroke="var(--accent)" stroke-width="1.4"/>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="9" fill="currentColor" opacity=".55">
+    <text x="157" y="56">I</text><text x="212" y="100">V</text>
+  </g>
+  <text x="190" y="124" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".55">capacitance</text>
+</symbol>
+
+<symbol id="t-genn" viewBox="0 0 220 150">
+  <!-- N1 -->
+  <g transform="translate(40 28)">
+    <g fill="currentColor" opacity=".65" stroke="none">
+      <rect x="0" y="0" width="11" height="11" rx="1"/><rect x="34" y="0" width="11" height="11" rx="1"/>
+      <rect x="51" y="0" width="11" height="11" rx="1"/><rect x="85" y="0" width="11" height="11" rx="1"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="1" opacity=".4" stroke-dasharray="2 2">
+      <rect x="17" y="0" width="11" height="11" rx="1"/><rect x="68" y="0" width="11" height="11" rx="1"/>
+    </g>
+  </g>
+  <!-- N2: dead kernels at DIFFERENT positions -->
+  <g transform="translate(40 78)">
+    <g fill="currentColor" opacity=".65" stroke="none">
+      <rect x="17" y="0" width="11" height="11" rx="1"/><rect x="34" y="0" width="11" height="11" rx="1"/>
+      <rect x="68" y="0" width="11" height="11" rx="1"/><rect x="85" y="0" width="11" height="11" rx="1"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="1" opacity=".4" stroke-dasharray="2 2">
+      <rect x="0" y="0" width="11" height="11" rx="1"/><rect x="51" y="0" width="11" height="11" rx="1"/>
+    </g>
+  </g>
+  <!-- index-aligned weight exchange, both directions -->
+  <g fill="none" stroke="var(--accent)" stroke-width="1.2">
+    <path d="M62.5 76L62.5 46" marker-end="url(#ah-sm-t)"/>
+    <path d="M96.5 44L96.5 74" marker-end="url(#ah-sm-t)"/>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8.5" fill="currentColor" opacity=".65">
+    <text x="20" y="38">N1</text><text x="20" y="88">N2</text>
+  </g>
+  <text x="150" y="62" font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10"
+        fill="var(--accent)">λW<tspan font-size="6.5" dy="2">i</tspan><tspan font-size="10" dy="-2">+(1−λ)W′</tspan><tspan font-size="6.5" dy="2">i</tspan></text>
+  <text x="132" y="20" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".5">dead kernels differ</text>
+
+  <!-- dict-attention over the whole training set -->
+  <g fill="none" stroke="var(--accent)" stroke-width="1.3">
+    <rect x="40" y="108" width="140" height="12" rx="1.5"/>
+    <g stroke-width=".8" opacity=".5"><path d="M75 108v12M110 108v12M145 108v12"/></g>
+  </g>
+  <g fill="none" stroke="currentColor" stroke-width=".9" opacity=".4">
+    <path d="M57 132v-12M92 132v-12M127 132v-12M162 132v-12"/>
+  </g>
+  <g fill="currentColor" opacity=".5" stroke="none">
+    <rect x="51" y="132" width="12" height="10" rx="1"/><rect x="86" y="132" width="12" height="10" rx="1"/>
+    <rect x="121" y="132" width="12" height="10" rx="1"/><rect x="156" y="132" width="12" height="10" rx="1"/>
+  </g>
+  <text x="188" y="118" font-family="ui-monospace,Consolas,monospace" font-size="7.5"
+        fill="var(--accent)" opacity=".9">dict</text>
+</symbol>
+
+<symbol id="t-manifold" viewBox="0 0 220 150">
+  <g fill="none" stroke-linecap="round">
+    <path d="M20 122C40 100 30 70 52 54C74 38 66 26 96 18" stroke="currentColor" stroke-width="1.1" opacity=".28"/>
+    <path d="M32 130C52 108 42 78 64 62C86 46 78 34 108 26" stroke="currentColor" stroke-width="1.1" opacity=".28"/>
+    <g stroke="var(--accent)" stroke-width="1.5">
+      <path d="M26 126L38 100L36 76L58 58L72 44L88 30L102 22"/>
+    </g>
+    <path d="M26 126L102 22" stroke="currentColor" stroke-width="1.1" stroke-dasharray="4 3" opacity=".55"/>
+  </g>
+  <g fill="currentColor" opacity=".6" stroke="none">
+    <circle cx="38" cy="100" r="2.5"/><circle cx="36" cy="76" r="2.5"/><circle cx="58" cy="58" r="2.5"/>
+    <circle cx="72" cy="44" r="2.5"/><circle cx="88" cy="30" r="2.5"/>
+  </g>
+  <circle cx="26" cy="126" r="3.4" fill="var(--accent)"/>
+  <circle cx="102" cy="22" r="3.4" fill="var(--accent)"/>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10">
+    <text x="14" y="140" fill="var(--accent)">i</text>
+    <text x="108" y="20" fill="var(--accent)">j</text>
+    <text x="14" y="86" fill="var(--accent)" font-size="10.5">d<tspan font-size="7" dy="2">G</tspan></text>
+    <text x="70" y="94" fill="currentColor" opacity=".6" font-size="9.5">&#8214;x<tspan font-size="6.5" dy="2">i</tspan><tspan font-size="9.5" dy="-2">&#8722;x</tspan><tspan font-size="6.5" dy="2">j</tspan><tspan font-size="9.5" dy="-2">&#8214;</tspan></text>
+  </g>
+  <path d="M124 74h20" stroke="currentColor" stroke-width="1" opacity=".5" marker-end="url(#ah-sm)" fill="none"/>
+  <text x="134" y="66" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="7.5"
+        fill="currentColor" opacity=".55">eigsolve</text>
+  <path d="M152 74h58" stroke="currentColor" stroke-width="1" opacity=".25" fill="none"/>
+  <g fill="var(--accent)" stroke="none">
+    <circle cx="156" cy="74" r="2.6"/><circle cx="166" cy="74" r="2.6"/><circle cx="176" cy="74" r="2.6"/>
+    <circle cx="186" cy="74" r="2.6"/><circle cx="196" cy="74" r="2.6"/><circle cx="206" cy="74" r="2.6"/>
+  </g>
+  <text x="181" y="96" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".5">R<tspan font-size="6.5" dy="-3.5">d</tspan></text>
+</symbol>
+
+<symbol id="t-qjda" viewBox="0 0 220 150">
+  <g fill="currentColor" opacity=".55" stroke="none">
+    <circle cx="34" cy="34" r="2.5"/><circle cx="46" cy="28" r="2.5"/><circle cx="40" cy="44" r="2.5"/>
+    <circle cx="30" cy="76" r="2.5"/><circle cx="44" cy="84" r="2.5"/><circle cx="34" cy="92" r="2.5"/>
+  </g>
+  <g fill="none" stroke="var(--accent)" stroke-width="1.3">
+    <circle cx="120" cy="52" r="2.5"/><circle cx="132" cy="44" r="2.5"/><circle cx="126" cy="62" r="2.5"/>
+    <circle cx="116" cy="98" r="2.5"/><circle cx="130" cy="106" r="2.5"/><circle cx="120" cy="114" r="2.5"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.4" opacity=".85" fill="none">
+    <path d="M36 32l6 6M42 32l-6 6"/><path d="M33 82l6 6M39 82l-6 6"/>
+  </g>
+  <g stroke="var(--accent)" stroke-width="1.4" fill="none">
+    <path d="M122 50l6 6M128 50l-6 6"/><path d="M119 104l6 6M125 104l-6 6"/>
+  </g>
+  <g fill="none" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="3.5 2.5">
+    <path d="M50 37L114 50" marker-end="url(#ah-sm-t)"/>
+    <path d="M47 87L111 105" marker-end="url(#ah-sm-t)"/>
+  </g>
+  <circle cx="38" cy="60" r="3" fill="currentColor" opacity=".8"/>
+  <circle cx="124" cy="79" r="3" fill="var(--accent)"/>
+  <path d="M43 62L118 77" stroke="currentColor" stroke-width="1.3" opacity=".8" fill="none" marker-end="url(#ah-sm)"/>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="11">
+    <text x="76" y="76" fill="currentColor" opacity=".85">M<tspan font-size="7" dy="2.5">0</tspan></text>
+    <text x="74" y="36" fill="var(--accent)">M<tspan font-size="7" dy="2.5">c</tspan></text>
+    <text x="72" y="112" fill="var(--accent)">M<tspan font-size="7" dy="2.5">c</tspan></text>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8" fill="currentColor" opacity=".5">
+    <text x="150" y="32">marginal +</text>
+    <text x="150" y="43">conditional</text>
+    <text x="150" y="134" fill="var(--accent)" opacity=".9">pseudo-labels</text>
+  </g>
+</symbol>
+
+<symbol id="t-qksa" viewBox="0 0 220 150">
+  <g fill="none" stroke="currentColor" stroke-width="1" opacity=".35">
+    <path d="M14 92c0-20 34-26 34-6s-30 24-30 4z"/>
+  </g>
+  <g fill="currentColor" opacity=".55" stroke="none">
+    <circle cx="22" cy="86" r="2.2"/><circle cx="34" cy="78" r="2.2"/><circle cx="42" cy="90" r="2.2"/>
+    <circle cx="28" cy="96" r="2.2"/>
+  </g>
+  <path d="M56 84h20" stroke="var(--accent)" stroke-width="1.1" fill="none" marker-end="url(#ah-sm-t)"/>
+  <text x="66" y="76" text-anchor="middle" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+        font-size="11" fill="var(--accent)">&#934;(x)</text>
+  <g transform="translate(112 104)" fill="none" stroke-linecap="round">
+    <path d="M0 0L46-17" stroke="currentColor" stroke-width="1.6" opacity=".8" marker-end="url(#ah)"/>
+    <path d="M0 0L17 46" stroke="currentColor" stroke-width="1.6" opacity=".8" marker-end="url(#ah)"/>
+    <path d="M0 0L46-40" stroke="var(--accent)" stroke-width="1.6" marker-end="url(#ah-t)"/>
+    <path d="M32-12a34 34 0 0 0 4-16" stroke="var(--accent)" stroke-width=".9" opacity=".85" marker-end="url(#ah-sm-t)"/>
+    <circle r="2.1" fill="currentColor"/>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10">
+    <text x="162" y="86" fill="currentColor" opacity=".7">P<tspan font-size="6.5" dy="2">s</tspan></text>
+    <text x="162" y="60" fill="var(--accent)">P<tspan font-size="6.5" dy="2">t</tspan></text>
+  </g>
+  <text x="150" y="30" text-anchor="middle" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+        font-size="11" fill="var(--accent)">U<tspan font-size="7" dy="2.5">M</tspan></text>
+  <text x="146" y="142" text-anchor="middle" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".5">align in feature space</text>
+</symbol>
+
+<symbol id="t-qlr" viewBox="0 0 220 150">
+  <g fill="none" stroke="currentColor">
+    <g stroke-width=".9" opacity=".45"><path d="M36 36h164M36 68h164M36 100h164"/></g>
+    <path d="M46 63l6 10" stroke-width=".9" opacity=".5"/>
+    <g stroke-width="1.3" opacity=".85">
+      <rect x="58" y="61" width="14" height="14" rx="1.5"/>
+      <rect x="96" y="90" width="30" height="18" rx="1.5"/>
+      <rect x="134" y="60" width="26" height="16" rx="1.5"/>
+      <rect x="168" y="28" width="24" height="16" rx="1.5" stroke="var(--accent)"/>
+    </g>
+    <path d="M111 68v22" stroke-width="1.1" opacity=".7"/>
+    <path d="M180 44v24" stroke-width="1.1" stroke="var(--accent)"/>
+  </g>
+  <circle cx="111" cy="68" r="2.6" fill="currentColor" opacity=".85"/>
+  <circle cx="180" cy="68" r="2.6" fill="var(--accent)"/>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8" fill="currentColor">
+    <text x="12" y="39" opacity=".6">|0&#10217;</text>
+    <text x="12" y="71" opacity=".6">|0&#10217;</text>
+    <text x="54" y="61" font-size="6.5" opacity=".55">t</text>
+    <text x="65" y="72" text-anchor="middle" opacity=".9">H</text>
+    <text x="147" y="71" text-anchor="middle" font-size="7.5" opacity=".9">QFT&#8224;</text>
+  </g>
+  <g font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10">
+    <text x="12" y="103" fill="currentColor" opacity=".7">|y&#10217;</text>
+    <text x="111" y="104" text-anchor="middle" fill="currentColor" opacity=".9">e<tspan font-size="7" dy="-4">iAt</tspan></text>
+    <text x="180" y="40" text-anchor="middle" fill="var(--accent)" font-size="9.5">R(1/&#955;)</text>
+  </g>
+  <path d="M111 112v8h-24" stroke="var(--accent)" stroke-width=".9" fill="none" opacity=".8"/>
+  <text x="84" y="123" text-anchor="end" font-family="Source Serif 4,Georgia,serif" font-style="italic"
+        font-size="10.5" fill="var(--accent)">A = X<tspan font-size="7" dy="-4">&#8868;</tspan><tspan font-size="10.5" dy="4">X + &#955;I</tspan></text>
+  <text x="200" y="142" text-anchor="end" font-family="ui-monospace,Consolas,monospace" font-size="8"
+        fill="currentColor" opacity=".5">A&#8315;&#185; by phase estimation</text>
+</symbol>
+
+<symbol id="t-tjunction" viewBox="0 0 220 150">
+  <g fill="none" stroke="currentColor" stroke-linecap="round">
+    <g stroke-width="1.6" opacity=".75">
+      <path d="M16 62h82M122 62h82"/>
+      <path d="M16 92h188"/>
+      <path d="M98 62V22M122 62V22"/>
+    </g>
+    <g stroke-width="1.4" opacity=".5">
+      <path d="M16 56v42M204 56v42M92 22h36"/>
+    </g>
+  </g>
+  <!-- anti-phase E field: down in the left arm, up in the right -->
+  <g stroke="var(--accent)" stroke-width="1.5" fill="none">
+    <path d="M42 68v16" marker-end="url(#ah-sm-t)"/>
+    <path d="M62 68v16" marker-end="url(#ah-sm-t)"/>
+    <path d="M158 86V70" marker-end="url(#ah-sm-t)"/>
+    <path d="M178 86V70" marker-end="url(#ah-sm-t)"/>
+  </g>
+  <g stroke="var(--accent)" stroke-width="1.4" fill="none">
+    <path d="M110 46V30" marker-end="url(#ah-sm-t)"/>
+  </g>
+  <g font-family="ui-monospace,Consolas,monospace" font-size="8.5" fill="currentColor">
+    <text x="110" y="16" text-anchor="middle" opacity=".7">P1</text>
+    <text x="16" y="112" opacity=".7">P2</text>
+    <text x="204" y="112" text-anchor="end" opacity=".7">P3</text>
+    <text x="34" y="112" fill="var(--accent)">0&#176;</text>
+    <text x="186" y="112" text-anchor="end" fill="var(--accent)">180&#176;</text>
+    <text x="110" y="132" text-anchor="middle" opacity=".5">E-plane tee, TE&#8321;&#8320;</text>
+  </g>
+  <text x="122" y="42" font-family="Source Serif 4,Georgia,serif" font-style="italic" font-size="10"
+        fill="var(--accent)">E</text>
+</symbol>
+</defs></svg>
+
+<script src="script.js"></script>
+</body>
+</html>
