@@ -18,7 +18,8 @@ assets/
   profile.jpg   ← drop an 800x800 square photo here; until then
                   the page falls back to an "XH" monogram
   favicon.svg
-  og.png        social-share card (1200×630)
+  og.jpg        social-share card (1200x630) — portrait plus the
+                same type block as the page; rebuilt by .preview/og.py
   fonts.css     @font-face rules
   fonts/        self-hosted Inter + Source Serif 4 (works behind the GFW)
   papers/       the real figure from each paper, plus drawn fallbacks

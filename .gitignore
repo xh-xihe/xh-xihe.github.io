@@ -16,6 +16,9 @@ _existing_repo/
 __pycache__/
 *.pyc
 
+# the full-resolution portrait; only the square crop is published
+assets/profile-original.*
+
 # OS noise
 .DS_Store
 Thumbs.db
